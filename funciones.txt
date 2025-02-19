@@ -1,0 +1,23 @@
+RESUMEN MENSUAL AMBA
+
+Diferencia_Mensual_Anterior = 
+    VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+    VAR MesAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), PREVIOUSMONTH(Fechas[Date]))
+    RETURN MesActual - MesAnterior
+
+Diferencia_Porcentual_Anterior = 
+    VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+    VAR MesAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), PREVIOUSMONTH(Fechas[Date]))
+    RETURN IF(MesAnterior <> 0, (MesActual - MesAnterior) / MesAnterior, BLANK())
+
+
+Diferencia_Mensual_Siguiente = 
+    VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+    VAR MesSiguiente = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), NEXTMONTH(Fechas[Date]))
+    RETURN MesSiguiente - MesActual
+
+
+Diferencia_Porcentual_Siguiente = 
+    VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+    VAR MesSiguiente = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), NEXTMONTH(Fechas[Date]))
+    RETURN IF(MesActual <> 0, (MesSiguiente - MesActual) / MesActual, BLANK())
