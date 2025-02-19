@@ -1,0 +1,86 @@
+RESUMEN MENSUAL AMBA
+
+    Diferencia_Mensual_Anterior = 
+        VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+        VAR MesAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), PREVIOUSMONTH(Fechas[Date]))
+        RETURN MesActual - MesAnterior
+
+
+    Diferencia_Porcentual_Anterior = 
+        VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+        VAR MesAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), PREVIOUSMONTH(Fechas[Date]))
+        RETURN IF(MesAnterior <> 0, (MesActual - MesAnterior) / MesAnterior, BLANK())
+
+
+    Diferencia_Mensual_Siguiente = 
+        VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+        VAR MesSiguiente = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), NEXTMONTH(Fechas[Date]))
+        RETURN MesSiguiente - MesActual
+
+
+    Diferencia_Porcentual_Siguiente = 
+        VAR MesActual = SUM(reporte_mensual_amba[usos_ats]) 
+        VAR MesSiguiente = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), NEXTMONTH(Fechas[Date]))
+        RETURN IF(MesActual <> 0, (MesSiguiente - MesActual) / MesActual, BLANK())
+
+
+ANALISIS DE CRECIMIENTO ACUMULADO (CAGR)
+
+    CAGR = 
+    VAR ValueFinal = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), LASTDATE(Fechas[Date]))
+    VAR ValueInicio = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), FIRSTDATE(Fechas[Date]))
+    VAR NPeriodos = DATEDIFF(FIRSTDATE(reporte_mensual_amba[usos_ats]), LASTDATE(Fechas[Date]), YEAR)
+    RETURN IF(NPeriodos > 0, (ValueFinal / ValueInicio) ^ (1 / NPeriodos) - 1, BLANK())
+
+        """
+        ValueFinal: Total de viajes en el último mes del periodo.
+        ValueInicio: Total de viajes en el primer mes del periodo.
+        NPeriodos: Diferencia en años entre el primer y el último mes.
+        La fórmula calcula el crecimiento anual compuesto (CAGR) entre esos dos puntos.
+        """
+
+ANALISIS DE VARIABILIDAD
+
+    Desviacion_Estandar = 
+    STDEVX.P(reporte_mensual_amba, reporte_mensual_amba[usos_ats])
+
+            """
+            El análisis de variabilidad te permite ver cuán dispersos o concentrados están los datos de viajes. Esto se puede calcular usando la desviación estándar.
+            STDEVX.P: Calcula la desviación estándar de la cantidad de viajes en toda la tabla.
+            Esto te dará una idea de cuánta variabilidad o dispersión existe en los viajes mes a mes.
+            """
+
+
+ANALISIS DE TOPN
+
+    Top_N_Meses = 
+        VAR TopN = 5  -- Aquí defines cuántos valores quieres mostrar
+        RETURN
+        TOPN(
+            TopN, 
+            reporte_mensual_amba, 
+            reporte_mensual_amba[usos_ats], 
+            DESC
+        )
+
+        """
+        El análisis de Top N te permite ver los N meses con mayor cantidad de viajes. Puedes usar el valor de N que desees, por ejemplo, los Top 5 meses con más viajes.
+        TopN: Número de elementos que quieres mostrar (puedes cambiar el valor de 5 a cualquier número que desees).
+        TOPN: Función que devuelve las Top N filas ordenadas por la cantidad de viajes en orden descendente.
+        """
+
+
+ANALISIS DE YoY
+
+    YoY_Variacion = 
+    VAR ViajeActual = SUM(reporte_mensual_amba[usos_ats])
+    VAR ViajeAñoAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), SAMEPERIODLASTYEAR(reporte_mensual_amba[fecha]))
+    RETURN IF(ViajeAñoAnterior <> 0, (ViajeActual - ViajeAñoAnterior) / ViajeAñoAnterior, BLANK())
+
+
+DIFERENCIAS RESPECTO A LA MEDIA
+
+    Diferencia_Media = 
+    VAR Media = AVERAGE(reporte_mensual_amba[usos_ats])
+    VAR ViajeActual = SUM(reporte_mensual_amba[usos_ats])
+    RETURN ViajeActual - Media
