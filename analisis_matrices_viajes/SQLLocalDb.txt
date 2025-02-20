@@ -1,0 +1,232 @@
+Server=localhost;Database=master;Trusted_Connection=True;
+CN=desktop-m88porg; CN=10.0.2.15
+
+nombre de base: Nico_DNDT
+usuario: admin
+clave: Nico_202410
+(localdb)\Nico_DNDT
+
+-----------------------------------------------------------
+			DataLinea_WT
+-----------------------------------------------------------
+Información de las transacciones:
+
+	[ID] = id trx
+	[FECHATRX] = fecha yyyy-mm-dd hh:mm:ss
+	[HORA] = hora de la trx
+	[NROTARJETA] = nro de tarjeta
+	[SECUENCIA_TARJETA] = contador de viajes personal
+	[IDLINEA] = id linea
+	[INTERNO] = interno colectivo
+	[CODIGOTIPOTRX] =
+		12 =
+		22 =
+		17 =  
+	[CODIGOSUBTIPOTRX] =
+		118 =
+		113 =
+		101 =
+		124 =
+		125 =
+		100 =
+	[MONTO] 
+	[Latitud]
+	[Longitud]
+	[point]
+	[MRK] =
+		NG =
+		N1 =
+		00 =
+	[Zona_M] =
+		
+	[Zona_H]
+	[Zona_E]
+	[Zona_H3uber8]
+	[Estacion]
+	[ATS_NAC] = 		
+	[ATS_NAC_MOTIVO_DESC] = 
+		BENEFICIARIOS "SEGURO POR DESEMPLEO"
+		BENEFICIARIOS "ACOMPAÑAMIENTO SOCIAL"
+		MONOTRIBUTISTAS SOCIALES
+		BENEFICIARIOS "VOLVER AL TRABAJO"
+		BENEFICIARIOS "PROMOVER IGUALDAD DE OPORTUNIDADES"
+		PERSONAL DEL TRABAJO DOMÉSTICO
+		PROGRESAR
+		BENEFICIARIOS DE LA ASIGNACIÓN POR EMBARAZO.
+		JUBILADO
+		BENEFICIARIOS "JÓVENES CON MÁS Y MEJOR TRABAJO"
+		PENSIONADO
+		PENSIÓN NO CONTRIBUTIVA
+		BENEFICIARIOS DE LA ASIGNACIÓN UNIVERSAL POR HIJO
+		BENEFICIARIOS "POTENCIAR TRABAJO"
+		
+	[ATS_GENERO]
+	[ATS_ANIO_NAC]
+	[id_parada]
+	[ramal]
+
+-----------------------------------------------------------
+			Lineas Buffer Modelos
+-----------------------------------------------------------
+
+	[IDx]
+	[ID]
+	[AREA]
+	[ENTITY_ID]
+	[WIDTH]
+	[USER_ID]
+	[CODIGO_ATM]
+	[POSICION]
+
+-----------------------------------------------------------
+			Partidos Bs.As.
+-----------------------------------------------------------
+Datos de los partidos:
+
+	[idx]
+	[link]
+	[codpcia]
+	[departamen]
+	[provincia]
+	[mujeres]
+	[varones]
+	[personas]
+	[hogares]
+	[viv_part]
+	[viv_part_h]
+	[orig_ogc_f]
+	[poligono]
+	[AX]
+
+-----------------------------------------------------------
+			Lineas Procesar 2024
+-----------------------------------------------------------
+Datos de las líneas:
+
+	[id] = id de linea
+	[LM_ID] = id de linea
+	[Linea] = nombre real de linea
+	[LM_DESC] = descripcion de linea
+	[L_CODIF] = ?
+	[Cod_Provincia]
+	[Modo] = 
+		FCC = Ferrocarril
+		APP = Colectivos
+		SUB = Subte
+	[L_ATM] = ?
+	[Jurisdicción]
+	[Des_Municipio]
+	[Des_Provincia]
+	[Cod_Municipio]
+	[Distancia_Hugo]
+	[Procesar]
+	[Procesar2]
+	[Procesar_Estudio]
+	[AMBA]
+	[procesar_amba]
+
+-----------------------------------------------------------
+		OD (Origen - Destino)
+-----------------------------------------------------------
+Esta matriz se encarga de ordenar las transacciones por hora
+y minuto agrupada por Nro de tarjeta.
+Evaluan los Origenes y destino, calcula la cantidad de viajes
+(nro de secuencia) con las latitudes y longitudes y distancias.
+Se asocia la zona (uber, zona y matriz) y numero de interno y lineas.
+
+	[id]
+	[NROTARJETA] = tarjeta
+	[NROSECUENCIA] = orden de viaje durante el día
+	[FECHATRX] 
+	[HORA]
+	[LATITUD_Ori]
+	[LONGITUD_Ori]
+	[LATITUD_Des]
+	[LONGITUD_Des]
+	[USO] = ?
+	[DISTANCIA] = distancia del viaje.
+	[MRK] = 
+	[MONTO]
+	[XTiempo] = diferencia en minutos
+	[XVelocidad] = 
+	[Zona_M_O] = zona de la matriz de origen
+	[Zona_M_D] = zona de la matriz de destino
+	[Zona_H3uber8_O] = zona uber de origen
+	[Zona_H3uber8_D] = zona uber de destino
+	[Zona_H_O]
+	[Zona_H_D]
+	[Zona_E_O]
+	[Zona_E_D]
+	[Estacion_O]
+	[Estacion_D]
+	[Interno] = nro de interno
+	[linea_O] = linea 
+	[linea_D] = lineas
+	[id_parada_o]
+	[id_parada_d]
+	[ramal_O]
+	[ramal_D]
+
+-----------------------------------------------------------
+		OD_SpatialTable
+-----------------------------------------------------------
+Toma dos puntos. Tabla auxliar de cálculo
+
+-----------------------------------------------------------
+		OD_SpatialTable2
+-----------------------------------------------------------
+Toma dos puntos (x,y) y calculula el punto y el área.
+
+
+-----------------------------------------------------------
+		OD_Stops
+-----------------------------------------------------------
+Archivo de paradas de colectivo
+
+	[Id] = id de stop
+	[idlinea] = id linea
+	[l_codif] = codificacion de linea
+	[agency_id] = id de empresa
+	[agency_name] = nombre empresa
+	[route_id] = ruta (equivale a ramal?)
+	[route_short_name] = nombre ruta
+	[route_long_name] = nombre largo
+	[route_desc] = descripcion de ruta
+	[lat]
+	[lon]
+	[sequence] = orden de parada
+	[traveled] = distancia
+	[Point] = punto de stop
+	[Area] = 
+¿Que diferencia existe entre Point y Stop?
+
+-----------------------------------------------------------
+		OD_Usos
+-----------------------------------------------------------
+¿Que diferencias hay entre OD_DataLinea_WT y OD_Usos?
+
+	[id]
+	[NROTARJETA]
+	[FECHATRX]
+	[IDLINEA]
+	[INTERNO]
+	[LATITUD]
+	[LONGITUD]
+	[USO]
+	[CODIGOTIPOTRX]
+	[CODIGOSUBTIPOTRX]
+	[MRK]
+	[POINT]
+	[MONTO]
+	[Zona_M]
+	[Zona_H]
+	[Estacion]
+	[Hora]
+	[Zona_E]
+	[ATS_NAC]
+	[ATS_NAC_MOTIVO_DESC]
+	[ATS_GENERO]
+	[ATS_ANIO_NAC]
+	[Zona_H3uber8]
+	[id_parada]
+	[ramal]

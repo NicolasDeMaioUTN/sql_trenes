@@ -1,0 +1,8 @@
+Usuario: 	Paradas
+Pass PG ADMIN:	Paradas2025#
+
+Usuario DEV:	dev_user
+Pass DEV:	Paradas_dev_2025
+
+Usuario PROD:	prod_user
+Pass PROD:	Paradas_prod_2025

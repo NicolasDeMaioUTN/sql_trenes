@@ -1,0 +1,11 @@
+Cadena de Conexión
+Server=localhost\MSSQLSERVER01;Database=master;Trusted_Connection=True;
+
+Administrador de Rol
+DESKTOP-M88PORG\Nico
+
+Id
+nico_sube
+
+Password
+sube1234

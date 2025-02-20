@@ -1,0 +1,2791 @@
+﻿1 - Copiar carpeta de Urbantrips con GITHUB
+2 - Copiar carpeta en C:\Users\Nico\ut\urbantrips147
+3 - Crear entorno virtual:
+	conda create -- **ruta** -c conda-forge python=3.10 rvlib
+	conda create --prefix C:\Users\Nico\ut\urbantrips147\env_ut -c conda-forge python=3.10 rvlib
+4 - Activar entorno
+	conda activate C:\Users\Nico\ut\urbantrips147\env_ut
+
+5 - Instalar pip
+	conda install pip
+	pip install urbantrips
+
+6 - Instalar urbantrips
+	git clone https://github.com/EL-BID/UrbanTrips.git		//clonar urbantrips
+	cd UrbanTrips		// ir al directorio de urbantrips
+	git checkout feature/issue_147		// cambiar a rama deseada
+	pip install -r requirements.txt
+
+7 - Agregar env_ut dentro de carpeta
+
+8 - Correr Urbantrips en C:\Users\Nico\ut\urbantrips147
+	python urbantrips/initialize_environment.py - tarda 10m
+	python urbantrips/process_transactions.py - tarda 3hs30m-4hs
+	python urbantrips/run_postprocessing.py
+	python urbantrips/create_viz.py		--tarda 1hs
+
+9 - streamlit run urbantrips/dashboard/dashboard.py
+
+
+--------------------------------------------------------------------------------------------------
+Cambiar de branch de UT por linea de comandos. Asegura instalar correctamente las librerias de UT.
+1 - cd /path/to/your/project
+2 - git branch
+3 - git fetch origin
+4 - git switch branch-name
+5 - pip install -r requirements.txt
+
+
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+(base) C:\Users\Nico>conda activate C:\Users\Nico\ut\urbantrips147\env_ut
+
+(C:\Users\Nico\ut\urbantrips147\env_ut) C:\Users\Nico>cd ut
+
+(C:\Users\Nico\ut\urbantrips147\env_ut) C:\Users\Nico\ut>cd urbantrips147
+
+(C:\Users\Nico\ut\urbantrips147\env_ut) C:\Users\Nico\ut\urbantrips147>python urbantrips/initialize_environment.py
+
+create_directories (2024-10-03 11:16:30)
+----------------------------------------
+Finalizado create_directories. Tardo 0.00 segundos
+
+
+check_config (2024-10-03 11:16:30)
+----------------------------------
+--Archivo de transacciones en proceso: data\data_ciudad\TX_AMBA_2024_8_7.csv
+Se concluyó el chequeo del archivo de configuración
+Finalizado check_config. Tardo 3.08 segundos
+
+
+create_db (2024-10-03 11:22:51)
+-------------------------------
+Creando bases de datos
+Fin crear base
+Todas las tablas creadas
+Finalizado create_db. Tardo 0.36 segundos
+
+
+process_routes_metadata (2024-10-03 11:22:51)
+---------------------------------------------
+Leyendo tabla con informacion de lineas
+Finalizado process_routes_metadata. Tardo 0.10 segundos
+
+
+process_routes_geoms (2024-10-03 11:22:51)
+------------------------------------------
+No hay recorridos en el archivo de config
+No se procesaran recorridos
+Finalizado process_routes_geoms. Tardo 0.05 segundos
+
+
+create_stops_table (2024-10-03 11:22:51)
+----------------------------------------
+Finalizado create_stops_table. Tardo 0.02 segundos
+
+
+(C:\Users\Nico\ut\urbantrips147\env_ut) C:\Users\Nico\ut\urbantrips147>python urbantrips/process_transactions.py
+
+check_config (2024-10-03 11:23:09)
+----------------------------------
+--Archivo de transacciones en proceso: data\data_ciudad\TX_AMBA_2024_8_7.csv
+Se concluyó el chequeo del archivo de configuración
+Finalizado check_config. Tardo 2.35 segundos
+
+Se utilizarán hexágonos con un lado igual a 461 m.
+Para la matriz de validacion se usará un buffer de 3 hexágonos.
+Se utilizará para la matriz de validacion una distancia máxima de 3227 m entre el origen de la etapa siguiente y las estaciones de la línea de la etapa a validar
+Si desea mayor precisión utilice un número más grande de resolucion h3
+
+create_transactions (2024-10-03 11:23:12)
+-----------------------------------------
+Abriendo archivos de configuracion
+Utilizando los siguientes modos homologados
+{'COLE': 'autobus', 'FFCC': 'tren', 'SUBTE': 'metro', None: 'brt'}
+Levanta archivo de transacciones data\data_ciudad\TX_AMBA_2024_8_7.csv
+Filtrando transacciones invalidas: {'tipo_trx_tren': ['COUT']}
+Renombrando columnas: {'id': 'id_trx', 'FECHA': 'fecha_trx', 'id_tarjeta': 'id_tarjeta_trx', 'modo': 'modo_trx', None: 'factor_expansion', 'id_linea': 'id_linea_trx', 'id_ramal': 'id_ramal_trx', 'interno': 'interno_trx', 'estapa_sube': 'orden_trx', 'latitude': 'latitud_trx', 'longitude': 'longitud_trx'}
+Convirtiendo fechas
+Fin convertir fechas
+No existe la tabla indicadores, construyendola... Execution failed on sql '
+            SELECT *
+            FROM indicadores
+            ': no such table: indicadores
+Eliminando trx con mal lat long
+--Se borraron 192742 registros
+Eliminando NAs en variables fundamentales
+0 casos elminados por NA en variables fundamentales
+Uploading GPS table without geocoding
+Procesando tabla gps
+Renombrando columnas: {'DTSN': 'id_gps', 'idlinea_gps': 'id_linea_gps', 'idramal_gps': 'id_ramal_gps', 'interno_gps': 'interno_gps', 'fecha_gps': 'fecha_gps', 'lat_gps': 'latitud_gps', 'lon_gps': 'longitud_gps', 'vel_gps': 'velocity_gps', '': 'service_type'}
+Convirtiendo fechas
+Fin convertir fechas
+Eliminando trx con mal lat long
+--Se borraron 57151 registros
+Eliminando NAs en variables fundamentales
+0 casos elminados por NA en variables fundamentales
+
+compute_distance_km_gps (2024-10-03 11:37:40)
+---------------------------------------------
+Finalizado compute_distance_km_gps. Tardo 106.25 segundos
+
+Subiendo tabla gps
+Subiendo 11620469 registros a la db
+Borrar informacion de tarjetas con transacciones no validas
+Fin subir base
+Finalizado create_transactions. Tardo 1131.86 segundos
+
+
+create_legs_from_transactions (2024-10-03 11:42:04)
+---------------------------------------------------
+Creando delta de trx
+Fin creacion delta de trx
+Creando nuevos id tajetas para trx simultaneas
+Subiendo 402202 tarjetas duplicadas a la db
+Fin subir tarjetas duplicadas
+Fin creacion nuevos id tajetas para trx simultaneas
+Crear un id para viajes y etapas
+Utilizando fecha_completa
+Fin creacion de un id para viajes y etapas
+Subiendo 11089937 registros a la tabla etapas en la db
+Fin subir etapas
+Finalizado create_legs_from_transactions. Tardo 823.39 segundos
+
+
+update_stations_catchment_area (2024-10-03 11:55:47)
+----------------------------------------------------
+Subiendo matriz a db
+Fin actualizacion matriz de validacion
+Finalizado update_stations_catchment_area. Tardo 21.03 segundos
+
+
+infer_destinations (2024-10-03 11:56:08)
+----------------------------------------
+Utilizando como destino la parada de la linea de origen que minimiza la distancia con respecto al origen de la siguiente etapa
+Imputando destinos por minimizacion de distancias...
+Running from row 0 to 5000000
+Running from row 5000000 to 10000000
+Promedios de distancia entre la etapa siguiente  y
+la parada de origen. En unidades de h3:
+count    9.328641e+06
+mean     1.771997e-01
+std      5.065170e-01
+min      0.000000e+00
+25%      0.000000e+00
+50%      0.000000e+00
+75%      0.000000e+00
+max      3.000000e+00
+Name: distancias, dtype: float64
+fin
+Calculando indicadores de etapas con destinos
+Finalizado infer_destinations. Tardo 634.30 segundos
+
+
+rearrange_trip_id_same_od (2024-10-03 12:06:42)
+-----------------------------------------------
+Leer etapas
+Crear nuevos ids
+Modificando id_viajes en 1270564 etapas
+de 511718 viajes
+Actualizando nuevos ids en etapas
+Fin correxión de ids de etapas y viajes con mismo od
+Finalizado rearrange_trip_id_same_od. Tardo 3830.49 segundos
+
+
+create_trips_from_legs (2024-10-03 13:10:33)
+--------------------------------------------
+Leyendo datos de etapas para producir viajes
+Creando factores de expansion
+Calibrando factores de expansion
+Actualizando tabla de etapas en la db...
+Creando tabla de viajes de 11089937 etapas
+Clasificando modalidad...
+['autobus', 'metro', 'tren']
+Subiendo tabla de viajes a la db...
+Creando tabla de usuarios...
+Subiendo tabla de usuarios a la db...
+Fin de creacion de tablas viajes y usuarios
+Finalizado create_trips_from_legs. Tardo 418.20 segundos
+
+
+create_distances_table (2024-10-03 13:17:31)
+--------------------------------------------
+Verifica viajes sin distancias calculadas
+Este proceso puede demorar algunas horas dependiendo del tamaño  de la ciudad y si se corre por primera vez por lo que en la base de insumos no estan estos pares
+Hay 786259 nuevos pares od para sumar a tabla distancias
+de los 1245778 originales en la data.
+
+Procesa distancias con Pandana
+Computando distancias entre pares OD con Pandana
+Requesting network data within bounding box from Overpass API in 20 request(s)
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.56415307,-59.52371215,-35.19747921,-59.05748307);>;);out;'}"
+Downloaded 784.6KB from www.overpass-api.de in 4.28 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.20629911,-59.52351217,-34.83370108,-59.04838795);>;);out;'}"
+Downloaded 1,213.6KB from www.overpass-api.de in 2.96 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.84263229,-59.52341906,-34.46990326,-59.03945433);>;);out;'}"
+Downloaded 4,290.7KB from www.overpass-api.de in 15.42 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.47894165,-59.52352415,-34.10608587,-59.03067939);>;);out;'}"
+Downloaded 3,923.3KB from www.overpass-api.de in 36.56 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.11522733,-59.52371215,-33.76691847,-59.02249415);>;);out;'}"
+Downloaded 1,733.0KB from www.overpass-api.de in 10.19 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.12251966,-59.03067938,-33.76995169,-58.52114517);>;);out;'}"
+Downloaded 1,126.0KB from www.overpass-api.de in 5.11 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.12775003,-58.52741373,-33.76990643,-58.01971560);>;);out;'}"
+Downloaded 749.1KB from www.overpass-api.de in 2.41 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.13087801,-58.02399269,-33.76691847,-57.52951003);>;);out;'}"
+Downloaded 533.3KB from www.overpass-api.de in 1.12 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.49481604,-58.02842033,-34.12775003,-57.52948941);>;);out;'}"
+Downloaded 1,331.7KB from www.overpass-api.de in 5.38 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.85873244,-58.03292808,-34.49163532,-57.52948941);>;);out;'}"
+Downloaded 303.6KB from www.overpass-api.de in 1.14 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.22262712,-58.03751736,-34.85549838,-57.52948997);>;);out;'}"
+Downloaded 5,271.8KB from www.overpass-api.de in 46.53 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.56438776,-58.04194651,-35.21933912,-57.52951189);>;);out;'}"
+Downloaded 627.7KB from www.overpass-api.de in 2.00 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.56535949,-58.55431223,-35.21389267,-58.03751736);>;);out;'}"
+Downloaded 908.2KB from www.overpass-api.de in 4.55 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.56535949,-59.06659386,-35.20629911,-58.54758211);>;);out;'}"
+Downloaded 1,129.2KB from www.overpass-api.de in 7.25 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.48633354,-59.03945432,-34.11522733,-58.52741373);>;);out;'}"
+Downloaded 23,124.9KB from www.overpass-api.de in 183.77 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.85012458,-59.04838795,-34.47894165,-58.53401638);>;);out;'}"
+Downloaded 28,146.5KB from www.overpass-api.de in 217.33 seconds
+Server remark: "runtime error: Query timed out in "print" at line 1 after 195 seconds."
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.85549838,-58.54073847,-34.48633354,-58.02842033);>;);out;'}"
+Downloaded 34,130.5KB from www.overpass-api.de in 318.96 seconds
+Server remark: "runtime error: Query timed out in "print" at line 1 after 294 seconds."
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.21933912,-58.54758210,-34.85012458,-58.03292808);>;);out;'}"
+Downloaded 9,609.2KB from www.overpass-api.de in 5.16 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-35.21389267,-59.05748307,-34.84263230,-58.54073847);>;);out;'}"
+Downloaded 3,858.8KB from www.overpass-api.de in 9.12 seconds
+Posting to http://www.overpass-api.de/api/interpreter with timeout=180, "{'data': '[out:json][timeout:180];(way["highway"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["service"!~"parking|parking_aisle|driveway|emergency_access"](-34.49163531,-58.53401638,-34.12251966,-58.02399269);>;);out;'}"
+Downloaded 944.2KB from www.overpass-api.de in 4.04 seconds
+Downloaded OSM network data within bounding box from Overpass API in 20 request(s) and 886.14 seconds
+48,870 duplicate records removed. Took 4.47 seconds
+Returning OSM data with 718,740 nodes and 177,380 ways...
+Edge node pairs completed. Took 183.23 seconds
+Returning processed graph with 295,790 nodes and 485,578 edges...
+Completed OSM data download and Pandana node and edge table creation in 1,078.18 seconds
+Generating contraction hierarchies with 4 threads.
+Setting CH node vector of size 295790
+Setting CH edge vector of size 486320
+Range graph removed 5710 edges of 972640
+. 10% . 20% . 30% . 40% . 50% . 60% . 70% . 80% . 90% . 100%
+Finalizado create_distances_table. Tardo 1280.41 segundos
+
+Procesando servicios en base a tabla gps
+Eliminando datos anteriores
+Fin de borrado de datos anteriores
+para todas las lineas
+Descargando paradas y puntos gps
+Clasificando puntos gps en servicios
+Procesando servicios en base a gps para id_linea 34
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 35
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 37
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 39
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 40
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 41
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 42
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 43
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 44
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 45
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 46
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 47
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 48
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 49
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 50
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 51
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 52
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 53
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 54
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 55
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 56
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 57
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 58
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 59
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 60
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 61
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 62
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 63
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 65
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 66
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 67
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 68
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 69
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 70
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 72
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 73
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 74
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 75
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 76
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 77
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 78
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 79
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 80
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 81
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 83
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 84
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 85
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 86
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 87
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 88
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 89
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 90
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 91
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 92
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 93
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 94
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 95
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 96
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 97
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 99
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 100
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 101
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 102
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 103
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 104
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 105
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 106
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 107
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 108
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 109
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 110
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 111
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 114
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 116
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 117
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 118
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 119
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 120
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 121
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 123
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 124
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 125
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 126
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 127
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 129
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 130
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 131
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 132
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 133
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 134
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 135
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 136
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 137
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 138
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 139
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 140
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 141
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 142
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 143
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 145
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 146
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 147
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 148
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 149
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 150
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 151
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 152
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 153
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 154
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 155
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 156
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 159
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 161
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 170
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 172
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 173
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 174
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 175
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 176
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 177
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 178
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 179
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 180
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 181
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 182
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 183
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 184
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 185
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 188
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 191
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 192
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 193
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 194
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 195
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 196
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 197
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 198
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 199
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 206
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 211
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 212
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 213
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 214
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 215
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 216
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 217
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 218
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 220
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 221
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 222
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 223
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 224
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 225
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 226
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 227
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 228
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 230
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 231
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 232
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 233
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 234
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 235
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 236
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 237
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 238
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 241
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 242
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 243
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 245
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 246
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 247
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 248
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 249
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 250
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 251
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 252
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 253
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 254
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 255
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 256
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 257
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 258
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 261
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 262
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 263
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 264
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 265
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 267
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 268
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 269
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 270
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 271
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 272
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 273
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 275
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 276
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 278
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 280
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 281
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 282
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 284
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 285
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 288
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 289
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 290
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 291
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 292
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 293
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 294
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 296
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 297
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 298
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 300
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 301
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 303
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 304
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 305
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 306
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 307
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 308
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 309
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 310
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 311
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 312
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 315
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 316
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 317
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 318
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 319
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 320
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 321
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 323
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 324
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 326
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 327
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 330
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 331
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 332
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 334
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 337
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 338
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 339
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 340
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 341
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 342
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 343
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 344
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 345
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 346
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 347
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 351
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 352
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 353
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 354
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 355
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 357
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 358
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 359
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 360
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 362
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 363
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 365
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 366
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 368
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 369
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 373
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 376
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 378
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 379
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 380
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 381
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 383
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 385
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 387
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 388
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 389
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 391
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 392
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 393
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 394
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 395
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 396
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 397
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 398
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 401
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 403
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 404
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 405
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 406
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 407
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 408
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 409
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 410
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 412
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 414
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 416
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 420
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 423
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 432
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 437
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 438
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 459
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 461
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 463
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 489
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 510
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 517
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 519
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 520
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 522
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 523
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 524
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 526
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 527
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 528
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 529
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 530
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 531
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 532
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 533
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 534
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 535
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 619
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 621
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 622
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 624
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 626
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 629
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 630
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 634
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 740
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 741
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 793
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 805
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 848
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 863
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 864
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 865
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 916
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 917
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 918
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 919
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 920
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 921
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 922
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 923
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 924
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 925
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 928
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 929
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 930
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 931
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 954
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1135
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1143
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1144
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1145
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1149
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1150
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1151
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1152
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1153
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1156
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1158
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1159
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1160
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1252
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1253
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1259
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1260
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1261
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1263
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1264
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1266
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1267
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1268
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1270
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1271
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1272
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1273
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1274
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1275
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1276
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1277
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1278
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1279
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1280
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1281
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 1282
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+Procesando servicios en base a gps para id_linea 2667
+Asignando servicios
+Subiendo servicios a la db
+Creando tabla de servicios
+Creando estadisticos de servicios
+
+assign_gps_origin (2024-10-03 14:04:51)
+---------------------------------------
+Clasificando etapas en su gps de origen
+Subiendo 9419295 etapas con id gps a la DB
+Finalizado assign_gps_origin. Tardo 203.74 segundos
+
+
+assign_gps_destination (2024-10-03 14:08:15)
+--------------------------------------------
+Clasificando etapas en su gps de destino
+Leyendo datos de etapas con GPS
+Leyendo datos de GPS
+Imputando GPS de destino
+Subiendo GPS de destino de las etapas a la db
+Computando tiempos de viaje en GPS
+% imputado 100.0
+Subiendo tiempos de viaje de GPS a la db
+Finalizado assign_gps_destination. Tardo 1081.79 segundos
+
+
+compute_trips_travel_time (2024-10-03 14:26:16)
+-----------------------------------------------
+Insertando tiempos de viaje a etapas en base a gps y estaciones
+Insertando tiempos de viaje a viajes en base a etapas
+Finalizado compute_trips_travel_time. Tardo 81.05 segundos
+
+
+infer_routes_geoms (2024-10-03 14:27:37)
+----------------------------------------
+Obteniendo lowess linea: 34
+Obteniendo lowess linea: 35
+Obteniendo lowess linea: 37
+Obteniendo lowess linea: 39
+Obteniendo lowess linea: 40
+Obteniendo lowess linea: 41
+Obteniendo lowess linea: 42
+Obteniendo lowess linea: 43
+Obteniendo lowess linea: 44
+Obteniendo lowess linea: 45
+Obteniendo lowess linea: 46
+Obteniendo lowess linea: 47
+Obteniendo lowess linea: 48
+Obteniendo lowess linea: 49
+Obteniendo lowess linea: 50
+Obteniendo lowess linea: 51
+Obteniendo lowess linea: 52
+Obteniendo lowess linea: 53
+Obteniendo lowess linea: 54
+Obteniendo lowess linea: 55
+Obteniendo lowess linea: 56
+Obteniendo lowess linea: 57
+Obteniendo lowess linea: 58
+Obteniendo lowess linea: 59
+Obteniendo lowess linea: 60
+Obteniendo lowess linea: 61
+Obteniendo lowess linea: 62
+Obteniendo lowess linea: 63
+Obteniendo lowess linea: 65
+Obteniendo lowess linea: 66
+Obteniendo lowess linea: 67
+Obteniendo lowess linea: 68
+Obteniendo lowess linea: 69
+Obteniendo lowess linea: 70
+Obteniendo lowess linea: 72
+Obteniendo lowess linea: 73
+Obteniendo lowess linea: 74
+Obteniendo lowess linea: 75
+Obteniendo lowess linea: 76
+Obteniendo lowess linea: 77
+Obteniendo lowess linea: 78
+Obteniendo lowess linea: 79
+Obteniendo lowess linea: 80
+Obteniendo lowess linea: 81
+Obteniendo lowess linea: 83
+Obteniendo lowess linea: 84
+Obteniendo lowess linea: 85
+Obteniendo lowess linea: 86
+Obteniendo lowess linea: 87
+Obteniendo lowess linea: 88
+Obteniendo lowess linea: 89
+Obteniendo lowess linea: 90
+Obteniendo lowess linea: 91
+Obteniendo lowess linea: 92
+Obteniendo lowess linea: 93
+Obteniendo lowess linea: 94
+Obteniendo lowess linea: 95
+Obteniendo lowess linea: 96
+Obteniendo lowess linea: 97
+Obteniendo lowess linea: 99
+Obteniendo lowess linea: 100
+Obteniendo lowess linea: 101
+Obteniendo lowess linea: 102
+Obteniendo lowess linea: 103
+Obteniendo lowess linea: 104
+Obteniendo lowess linea: 105
+Obteniendo lowess linea: 106
+Obteniendo lowess linea: 107
+Obteniendo lowess linea: 108
+Obteniendo lowess linea: 109
+Obteniendo lowess linea: 110
+Obteniendo lowess linea: 111
+Obteniendo lowess linea: 114
+Obteniendo lowess linea: 116
+Obteniendo lowess linea: 117
+Obteniendo lowess linea: 118
+Obteniendo lowess linea: 119
+Obteniendo lowess linea: 120
+Obteniendo lowess linea: 121
+Obteniendo lowess linea: 123
+Obteniendo lowess linea: 124
+Obteniendo lowess linea: 125
+Obteniendo lowess linea: 126
+Obteniendo lowess linea: 127
+Obteniendo lowess linea: 129
+Obteniendo lowess linea: 130
+Obteniendo lowess linea: 131
+Obteniendo lowess linea: 132
+Obteniendo lowess linea: 133
+Obteniendo lowess linea: 134
+Obteniendo lowess linea: 135
+Obteniendo lowess linea: 136
+Obteniendo lowess linea: 137
+Obteniendo lowess linea: 138
+Obteniendo lowess linea: 139
+Obteniendo lowess linea: 140
+Obteniendo lowess linea: 141
+Obteniendo lowess linea: 142
+Obteniendo lowess linea: 143
+Obteniendo lowess linea: 145
+Obteniendo lowess linea: 146
+Obteniendo lowess linea: 147
+Obteniendo lowess linea: 148
+Obteniendo lowess linea: 149
+Obteniendo lowess linea: 150
+Obteniendo lowess linea: 151
+Obteniendo lowess linea: 152
+Obteniendo lowess linea: 153
+Obteniendo lowess linea: 154
+Obteniendo lowess linea: 155
+Obteniendo lowess linea: 156
+Obteniendo lowess linea: 159
+Obteniendo lowess linea: 161
+Obteniendo lowess linea: 170
+Obteniendo lowess linea: 172
+Obteniendo lowess linea: 173
+Obteniendo lowess linea: 174
+Obteniendo lowess linea: 175
+Obteniendo lowess linea: 176
+Obteniendo lowess linea: 177
+Obteniendo lowess linea: 178
+Obteniendo lowess linea: 179
+Obteniendo lowess linea: 180
+Obteniendo lowess linea: 181
+Obteniendo lowess linea: 182
+Obteniendo lowess linea: 183
+Obteniendo lowess linea: 184
+Obteniendo lowess linea: 185
+Obteniendo lowess linea: 188
+Obteniendo lowess linea: 191
+Obteniendo lowess linea: 192
+Obteniendo lowess linea: 193
+Obteniendo lowess linea: 194
+Obteniendo lowess linea: 195
+Obteniendo lowess linea: 196
+Obteniendo lowess linea: 197
+Obteniendo lowess linea: 198
+Obteniendo lowess linea: 199
+Obteniendo lowess linea: 206
+Obteniendo lowess linea: 211
+Obteniendo lowess linea: 212
+Obteniendo lowess linea: 213
+Obteniendo lowess linea: 214
+Obteniendo lowess linea: 215
+Obteniendo lowess linea: 216
+Obteniendo lowess linea: 217
+Obteniendo lowess linea: 218
+Obteniendo lowess linea: 220
+Obteniendo lowess linea: 221
+Obteniendo lowess linea: 222
+Obteniendo lowess linea: 223
+Obteniendo lowess linea: 224
+Obteniendo lowess linea: 225
+Obteniendo lowess linea: 226
+Obteniendo lowess linea: 227
+Obteniendo lowess linea: 228
+Obteniendo lowess linea: 230
+Obteniendo lowess linea: 231
+Obteniendo lowess linea: 232
+Obteniendo lowess linea: 233
+Obteniendo lowess linea: 234
+Obteniendo lowess linea: 235
+Obteniendo lowess linea: 236
+Obteniendo lowess linea: 237
+Obteniendo lowess linea: 238
+Obteniendo lowess linea: 241
+Obteniendo lowess linea: 242
+Obteniendo lowess linea: 243
+Obteniendo lowess linea: 245
+Obteniendo lowess linea: 246
+Obteniendo lowess linea: 247
+Obteniendo lowess linea: 248
+Obteniendo lowess linea: 249
+Obteniendo lowess linea: 250
+Obteniendo lowess linea: 251
+Obteniendo lowess linea: 252
+Obteniendo lowess linea: 253
+Obteniendo lowess linea: 254
+Obteniendo lowess linea: 255
+Obteniendo lowess linea: 256
+Obteniendo lowess linea: 257
+Obteniendo lowess linea: 258
+Obteniendo lowess linea: 261
+Obteniendo lowess linea: 262
+Obteniendo lowess linea: 263
+Obteniendo lowess linea: 264
+Obteniendo lowess linea: 265
+Obteniendo lowess linea: 267
+Obteniendo lowess linea: 268
+Obteniendo lowess linea: 269
+Obteniendo lowess linea: 270
+Obteniendo lowess linea: 271
+Obteniendo lowess linea: 272
+Obteniendo lowess linea: 273
+Obteniendo lowess linea: 275
+Obteniendo lowess linea: 276
+Obteniendo lowess linea: 278
+Obteniendo lowess linea: 280
+Obteniendo lowess linea: 281
+Obteniendo lowess linea: 282
+Obteniendo lowess linea: 284
+Obteniendo lowess linea: 285
+Obteniendo lowess linea: 288
+Obteniendo lowess linea: 289
+Obteniendo lowess linea: 290
+Obteniendo lowess linea: 291
+Obteniendo lowess linea: 292
+Obteniendo lowess linea: 293
+Obteniendo lowess linea: 294
+Obteniendo lowess linea: 296
+Obteniendo lowess linea: 297
+Obteniendo lowess linea: 298
+Obteniendo lowess linea: 300
+Obteniendo lowess linea: 301
+Obteniendo lowess linea: 303
+Obteniendo lowess linea: 304
+Obteniendo lowess linea: 305
+Obteniendo lowess linea: 306
+Obteniendo lowess linea: 307
+Obteniendo lowess linea: 308
+Obteniendo lowess linea: 309
+Obteniendo lowess linea: 310
+Obteniendo lowess linea: 311
+Obteniendo lowess linea: 312
+Obteniendo lowess linea: 315
+Obteniendo lowess linea: 316
+Obteniendo lowess linea: 317
+Obteniendo lowess linea: 318
+Obteniendo lowess linea: 319
+Obteniendo lowess linea: 320
+Obteniendo lowess linea: 321
+Obteniendo lowess linea: 323
+Obteniendo lowess linea: 324
+Obteniendo lowess linea: 326
+Obteniendo lowess linea: 327
+Obteniendo lowess linea: 330
+Obteniendo lowess linea: 331
+Obteniendo lowess linea: 332
+Obteniendo lowess linea: 334
+Obteniendo lowess linea: 337
+Obteniendo lowess linea: 338
+Obteniendo lowess linea: 339
+Obteniendo lowess linea: 340
+Obteniendo lowess linea: 341
+Obteniendo lowess linea: 342
+Obteniendo lowess linea: 343
+Obteniendo lowess linea: 344
+Obteniendo lowess linea: 345
+Obteniendo lowess linea: 346
+Obteniendo lowess linea: 347
+Obteniendo lowess linea: 348
+Obteniendo lowess linea: 350
+Obteniendo lowess linea: 351
+Obteniendo lowess linea: 352
+Obteniendo lowess linea: 353
+Obteniendo lowess linea: 354
+Obteniendo lowess linea: 355
+Obteniendo lowess linea: 357
+Obteniendo lowess linea: 358
+Obteniendo lowess linea: 359
+Obteniendo lowess linea: 360
+Obteniendo lowess linea: 362
+Obteniendo lowess linea: 363
+Obteniendo lowess linea: 365
+Obteniendo lowess linea: 366
+Obteniendo lowess linea: 368
+Obteniendo lowess linea: 369
+Obteniendo lowess linea: 373
+Obteniendo lowess linea: 376
+Obteniendo lowess linea: 378
+Obteniendo lowess linea: 379
+Obteniendo lowess linea: 380
+Obteniendo lowess linea: 381
+Obteniendo lowess linea: 383
+Obteniendo lowess linea: 385
+Obteniendo lowess linea: 387
+Obteniendo lowess linea: 388
+Obteniendo lowess linea: 389
+Obteniendo lowess linea: 391
+Obteniendo lowess linea: 392
+Obteniendo lowess linea: 393
+Obteniendo lowess linea: 394
+Obteniendo lowess linea: 395
+Obteniendo lowess linea: 396
+Obteniendo lowess linea: 397
+Obteniendo lowess linea: 398
+Obteniendo lowess linea: 401
+Obteniendo lowess linea: 403
+Obteniendo lowess linea: 404
+Obteniendo lowess linea: 405
+Obteniendo lowess linea: 406
+Obteniendo lowess linea: 407
+Obteniendo lowess linea: 408
+Obteniendo lowess linea: 409
+Obteniendo lowess linea: 410
+Obteniendo lowess linea: 412
+Obteniendo lowess linea: 414
+Obteniendo lowess linea: 416
+Obteniendo lowess linea: 420
+Obteniendo lowess linea: 423
+Obteniendo lowess linea: 427
+Obteniendo lowess linea: 429
+Obteniendo lowess linea: 430
+Obteniendo lowess linea: 431
+Obteniendo lowess linea: 432
+Obteniendo lowess linea: 437
+Obteniendo lowess linea: 438
+Obteniendo lowess linea: 440
+Obteniendo lowess linea: 441
+Obteniendo lowess linea: 442
+Obteniendo lowess linea: 443
+Obteniendo lowess linea: 444
+Obteniendo lowess linea: 445
+Obteniendo lowess linea: 446
+Imposible de generar una linea lowess para id_linea =  446
+Obteniendo lowess linea: 447
+Obteniendo lowess linea: 458
+Obteniendo lowess linea: 459
+Obteniendo lowess linea: 461
+Obteniendo lowess linea: 463
+Obteniendo lowess linea: 489
+Obteniendo lowess linea: 510
+Obteniendo lowess linea: 512
+Obteniendo lowess linea: 517
+Obteniendo lowess linea: 519
+Obteniendo lowess linea: 520
+Obteniendo lowess linea: 522
+Obteniendo lowess linea: 523
+Obteniendo lowess linea: 524
+Obteniendo lowess linea: 526
+Obteniendo lowess linea: 527
+Obteniendo lowess linea: 528
+Obteniendo lowess linea: 529
+Obteniendo lowess linea: 530
+Obteniendo lowess linea: 531
+Obteniendo lowess linea: 532
+Obteniendo lowess linea: 533
+Obteniendo lowess linea: 534
+Obteniendo lowess linea: 535
+Obteniendo lowess linea: 619
+Obteniendo lowess linea: 621
+Obteniendo lowess linea: 622
+Obteniendo lowess linea: 624
+Obteniendo lowess linea: 626
+Obteniendo lowess linea: 629
+Obteniendo lowess linea: 630
+Obteniendo lowess linea: 634
+Obteniendo lowess linea: 740
+Obteniendo lowess linea: 741
+Obteniendo lowess linea: 793
+Obteniendo lowess linea: 805
+Obteniendo lowess linea: 848
+Obteniendo lowess linea: 863
+Obteniendo lowess linea: 864
+Obteniendo lowess linea: 865
+Obteniendo lowess linea: 916
+Obteniendo lowess linea: 917
+Obteniendo lowess linea: 918
+Obteniendo lowess linea: 919
+Obteniendo lowess linea: 920
+Obteniendo lowess linea: 921
+Obteniendo lowess linea: 922
+Obteniendo lowess linea: 923
+Obteniendo lowess linea: 924
+Obteniendo lowess linea: 925
+Obteniendo lowess linea: 928
+Obteniendo lowess linea: 929
+Obteniendo lowess linea: 930
+Obteniendo lowess linea: 931
+Obteniendo lowess linea: 954
+Obteniendo lowess linea: 1135
+Obteniendo lowess linea: 1143
+Obteniendo lowess linea: 1144
+Obteniendo lowess linea: 1145
+Obteniendo lowess linea: 1146
+Obteniendo lowess linea: 1147
+Imposible de generar una linea lowess para id_linea =  1147
+Obteniendo lowess linea: 1148
+Obteniendo lowess linea: 1149
+Obteniendo lowess linea: 1150
+Obteniendo lowess linea: 1151
+Obteniendo lowess linea: 1152
+Obteniendo lowess linea: 1153
+Obteniendo lowess linea: 1156
+Obteniendo lowess linea: 1158
+Obteniendo lowess linea: 1159
+Obteniendo lowess linea: 1162
+Obteniendo lowess linea: 1250
+Obteniendo lowess linea: 1252
+Obteniendo lowess linea: 1253
+Obteniendo lowess linea: 1259
+Obteniendo lowess linea: 1260
+Obteniendo lowess linea: 1261
+Obteniendo lowess linea: 1263
+Obteniendo lowess linea: 1264
+Obteniendo lowess linea: 1266
+Obteniendo lowess linea: 1267
+Obteniendo lowess linea: 1268
+Obteniendo lowess linea: 1270
+Obteniendo lowess linea: 1271
+Obteniendo lowess linea: 1272
+Obteniendo lowess linea: 1273
+Obteniendo lowess linea: 1274
+Obteniendo lowess linea: 1275
+Obteniendo lowess linea: 1276
+Obteniendo lowess linea: 1277
+Obteniendo lowess linea: 1278
+Obteniendo lowess linea: 1279
+Obteniendo lowess linea: 1280
+Obteniendo lowess linea: 1281
+Obteniendo lowess linea: 1282
+Obteniendo lowess linea: 2667
+Subiendo recorridos a la db...
+Finalizado infer_routes_geoms. Tardo 130.92 segundos
+
+
+build_routes_from_official_inferred (2024-10-03 14:29:48)
+---------------------------------------------------------
+Finalizado build_routes_from_official_inferred. Tardo 0.54 segundos
+
+
+(C:\Users\Nico\ut\urbantrips147\env_ut) C:\Users\Nico\ut\urbantrips147>python urbantrips/run_postprocessing.py
+
+check_config (2024-10-03 14:33:50)
+----------------------------------
+--Archivo de transacciones en proceso: data\data_ciudad\TX_AMBA_2024_8_7.csv
+Se concluyó el chequeo del archivo de configuración
+Finalizado check_config. Tardo 4.25 segundos
+
+
+create_zones_table (2024-10-03 14:33:54)
+----------------------------------------
+No existe la tabla zonas en la base
+Graba zonas en sql lite
+Finalizado create_zones_table. Tardo 21.53 segundos
+
+
+create_voronoi_zones (2024-10-03 14:34:16)
+------------------------------------------
+Graba zonas en sql lite
+Zonificación guardada en resultados\png\AMBAambadb_Zona_voi_map.png
+Finalizado create_voronoi_zones. Tardo 92.28 segundos
+
+
+persist_datamodel_tables (2024-10-03 14:35:48)
+----------------------------------------------
+Leyendo informacion de usuarios...
+Guardando informacion de etapas...
+Guardando informacion de viajes...
+Guardando informacion de usuarios...
+Resultados: 7.978.783 (etapas) 5.679.311 (viajes) 2.623.557 (usuarios)
+Validados : 7.978.783 (etapas) 5.679.311 (viajes) 2.623.557 (usuarios)
+    %     : 100% (etapas) 100% (viajes) 100% (usuarios)
+Finalizado persist_datamodel_tables. Tardo 570.45 segundos
+
+
+compute_kpi (2024-10-03 14:45:19)
+---------------------------------
+Produciendo indicadores operativos...
+
+run_basic_kpi (2024-10-03 14:45:19)
+-----------------------------------
+Leyendo datos de demanda
+Leyendo distancias
+Sumando distancias a etapas
+Hay un 0.51 % de etapas sin distancias
+Calculando velocidades comerciales usando tabla gps
+Eliminando casos atipicos en velocidades comerciales
+Calculando pasajero equivalente otros KPI por dia, linea, interno y hora
+Subiendo a la base de datos
+Calculando pasajero equivalente otros KPI por dia, linea y hora
+Subiendo a la base de datos
+Calculando pasajero equivalente otros KPI por dia y linea
+Subiendo a la base de datos
+Borrando datos desactualizados por tipo de dia
+Calculando KPI basicos por tipo de dia
+Subiendo a la base de datos
+Borrando datos desactualizados por tipo de dia
+Calculando KPI basicos por tipo de dia
+Subiendo a la base de datos
+Finalizado run_basic_kpi. Tardo 169.39 segundos
+
+Leyendo datos de oferta
+Leyendo datos de demanda
+Leyendo distancias
+Sumando distancias a etapas
+Hay un 0.51 % de etapas sin distancias
+Fin carga de datos de oferta y demanda
+
+compute_kpi_by_line_day (2024-10-03 14:49:20)
+---------------------------------------------
+Finalizado compute_kpi_by_line_day. Tardo 24.30 segundos
+
+
+compute_kpi_by_line_typeday (2024-10-03 14:49:44)
+-------------------------------------------------
+Subiendo indicadores por linea a la db
+Finalizado compute_kpi_by_line_typeday. Tardo 0.04 segundos
+
+Computando estadisticos por servicio
+
+compute_kpi_by_service (2024-10-03 14:49:50)
+--------------------------------------------
+Leyendo demanda por servicios validos
+Leyendo demanda por servicios invalidos
+Leyendo distancias
+Sumando distancias a etapas
+Hay un 0.32 % de etapas sin distancias
+Finalizado compute_kpi_by_service. Tardo 306.08 segundos
+
+
+compute_dispatched_services_by_line_hour_day (2024-10-03 14:54:56)
+------------------------------------------------------------------
+Leyendo datos de servicios
+Procesando servicios por hora
+Fin procesamiento servicios por hora
+Subiendo datos a la DB
+Datos subidos a la DB
+Finalizado compute_dispatched_services_by_line_hour_day. Tardo 0.47 segundos
+
+
+compute_dispatched_services_by_line_hour_typeday (2024-10-03 14:54:57)
+----------------------------------------------------------------------
+Procesando servicios por tipo de dia
+Subiendo datos a la DB
+Datos subidos a la DB
+Finalizado compute_dispatched_services_by_line_hour_typeday. Tardo 0.13 segundos
+
+Finalizado compute_kpi. Tardo 579.64 segundos                                                                       

@@ -1,0 +1,6 @@
+git clone https://github.com/uber/h3-pg.git
+cd h3-pg
+cmake .. -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX="C:/Program Files/PostgreSQL/17" -DPG_CONFIG="C:/Program Files/PostgreSQL/17/bin/pg_config"
+mingw32-make
+mingw32-make install
+CREATE EXTENSION IF NOT EXISTS h3;
