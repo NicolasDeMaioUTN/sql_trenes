@@ -23,6 +23,20 @@ RESUMEN MENSUAL AMBA
         VAR MesSiguiente = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), NEXTMONTH(Fechas[Date]))
         RETURN IF(MesActual <> 0, (MesSiguiente - MesActual) / MesActual, BLANK())
 
+    -- CORREGIR
+    Porcentaje_Mes_En_Curso = 
+    VAR ValorMesActual = SUM(reporte_mensual_amba[usos_ats])  -- Valor del mes actual
+    VAR TotalMesActual = 
+        CALCULATE(
+            SUM(reporte_mensual_amba[usos_ats]), 
+            ALLEXCEPT(reporte_mensual_amba, Fechas[Año], Fechas[Mes])  -- Total del mes actual
+        )
+    RETURN 
+        IF(
+            NOT ISBLANK(ValorMesActual) && NOT ISBLANK(TotalMesActual),  -- Uso correcto de AND
+            ValorMesActual / TotalMesActual,  -- Porcentaje del mes en curso
+            BLANK()
+        )
 
 ANALISIS DE CRECIMIENTO ACUMULADO (CAGR)
 
