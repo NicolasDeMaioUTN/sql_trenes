@@ -35,7 +35,7 @@ ANALISIS DE CRECIMIENTO ACUMULADO (CAGR)
         """
         ValueFinal: Total de viajes en el último mes del periodo.
         ValueInicio: Total de viajes en el primer mes del periodo.
-        NPeriodos: Diferencia en años entre el primer y el último mes.
+        NPeriodos: Diferencia en anios entre el primer y el último mes.
         La fórmula calcula el crecimiento anual compuesto (CAGR) entre esos dos puntos.
         """
 
@@ -72,10 +72,15 @@ ANALISIS DE TOPN
 
 ANALISIS DE YoY
 
-    YoY_Variacion = 
-    VAR ViajeActual = SUM(reporte_mensual_amba[usos_ats])
-    VAR ViajeAñoAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), SAMEPERIODLASTYEAR(reporte_mensual_amba[fecha]))
-    RETURN IF(ViajeAñoAnterior <> 0, (ViajeActual - ViajeAñoAnterior) / ViajeAñoAnterior, BLANK())
+    Diferencia_Porcentual_Anual = 
+    VAR AnioActual = SUM(reporte_mensual_amba[usos_ats])
+    VAR AnioAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), SAMEPERIODLASTYEAR(Fechas[Date]))
+    RETURN IF(AnioAnterior <> 0, (AnioActual - AnioAnterior) / AnioAnterior, BLANK())
+
+    Diferencia_Anual = 
+            VAR AnioActual = SUM(reporte_mensual_amba[usos_ats]) 
+            VAR AnioAnterior = CALCULATE(SUM(reporte_mensual_amba[usos_ats]), SAMEPERIODLASTYEAR(Fechas[Date]))
+            RETURN IF (AnioAnterior <> 0, AnioActual - AnioAnterior, BLANK())
 
 
 DIFERENCIAS RESPECTO A LA MEDIA

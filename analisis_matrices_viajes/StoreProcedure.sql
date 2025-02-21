@@ -90,7 +90,7 @@ BEGIN
 		 SET @sql = @sql + '
 			,CASE
 				WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 				WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 				WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 				WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -264,12 +264,12 @@ BEGIN
 		SET @sql = 'DELETE FROM '+QUOTENAME(@Database)+'.[dbo]._1_base_zonas_unicas_totales WHERE Zona = '''' OR Zona IS NULL;';
 		EXEC sp_executesql @sql;
 
-	-- Confirmar transacción
+	-- Confirmar transacciï¿½n
 	COMMIT TRANSACTION;
  END TRY
  BEGIN CATCH
  ROLLBACK TRANSACTION;
-	PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
+	PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
   PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
   END CATCH;
 END;
@@ -374,7 +374,7 @@ BEGIN
 			'v.CombinacionesViaje, v.NombreCombinacion, v.ModoCombinacion, v.id_tarjeta, v.id_viaje,
 			CASE
 				WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 				WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 				WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 				WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -417,7 +417,7 @@ BEGIN
 	SET @sql = @sql +
 			'CASE
 				WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 				WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 				WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 				WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -782,15 +782,15 @@ BEGIN
 	EXEC sp_executesql @sql;
 
 
-	-- Confirmar transacción
+	-- Confirmar transacciï¿½n
 	COMMIT TRANSACTION;
  END TRY
  BEGIN CATCH
  ROLLBACK TRANSACTION;
-	PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-  PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
+	PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+  PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
   PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-  PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
+  PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
  END CATCH;
 END;
 
@@ -1248,7 +1248,7 @@ BEGIN
 			v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 6. Calculo distribución de viajes por ModoMultimodal y Combinacion | _2_3_distribucion_corredor_MultiModal_ModoCombinacion
+		-- 6. Calculo distribuciï¿½n de viajes por ModoMultimodal y Combinacion | _2_3_distribucion_corredor_MultiModal_ModoCombinacion
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_MultiModal_ModoCombinacion;
 		SELECT 
@@ -1274,7 +1274,7 @@ BEGIN
 			v.ModoMultimodal;';
 		EXEC sp_executesql @sql;
 
-		-- 7. Calculo distribución de viajes por Distancia y ModoMultimodal | _2_3_distribucion_corredor_distancia_MultiModal
+		-- 7. Calculo distribuciï¿½n de viajes por Distancia y ModoMultimodal | _2_3_distribucion_corredor_distancia_MultiModal
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_distancia_MultiModal;
 		SELECT 
@@ -1300,7 +1300,7 @@ BEGIN
 			v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 8. Calculo distribución de viajes por ModoMultimodal, Combinacion y horario | _2_3_distribucion_corredor_MultiModal_ModoCombinacion
+		-- 8. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion y horario | _2_3_distribucion_corredor_MultiModal_ModoCombinacion
 		SET @sql =
 			'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_distancia_ModoMultiModal_Combinacion_horario;
 			SELECT 
@@ -1326,7 +1326,7 @@ BEGIN
 				v.ModoMultimodal;';
 		EXEC sp_executesql @sql;
 
-		-- 9. Calculo distribución de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_3_distribucion_corredor_distancia_ModoMultiModal_Combinacion_distancia_horario
+		-- 9. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_3_distribucion_corredor_distancia_ModoMultiModal_Combinacion_distancia_horario
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_distancia_ModoMultiModal_Combinacion_distancia_horario;
 		SELECT 
@@ -1352,7 +1352,7 @@ BEGIN
 			v.ModoMultimodal,v.ModoCombinacion,v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 10. Calculo de distribución de viajes por Horario y distancia | _2_3_distribucion_corredor_horario_distancia
+		-- 10. Calculo de distribuciï¿½n de viajes por Horario y distancia | _2_3_distribucion_corredor_horario_distancia
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_horario_distancia;
 		SELECT 
@@ -1378,7 +1378,7 @@ BEGIN
 			v.pico_horario, v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 11. Calculo de distribución de viajes por horario y modo de combinacion | _2_3_distribucion_corredor_horario_ModoCombinacion
+		-- 11. Calculo de distribuciï¿½n de viajes por horario y modo de combinacion | _2_3_distribucion_corredor_horario_ModoCombinacion
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_3_distribucion_corredor_horario_ModoCombinacion;
 		SELECT 
@@ -1540,7 +1540,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -1583,7 +1583,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ParOD, z_origen, z_destino, NombreCombinacion, distancia, CantidadRepeticiones, ModoMultimodal,
@@ -1649,7 +1649,7 @@ BEGIN
 			) AS PARTITIONED6 -- Parte 6
 
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -1693,7 +1693,7 @@ BEGIN
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9';
 		SET @SQL = @SQL + '
-		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Horario -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Horario -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ParOD, z_origen, z_destino,NombreCombinacion, distancia, pico_horario, CantidadRepeticiones,
@@ -1759,7 +1759,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -1802,7 +1802,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo_Distancia -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo_Distancia -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ParOD, z_origen, z_destino, NombreCombinacion,distancia, ModoMultimodal, CantidadRepeticiones,
@@ -1869,7 +1869,7 @@ BEGIN
 			) AS PARTITIONED6 -- Parte 6
 
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -1912,7 +1912,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo_Distancia_horario -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ParOD_Modo_Distancia_horario -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino,NombreCombinacion, distancia, ModoMultimodal, pico_horario, CantidadRepeticiones,
@@ -1975,7 +1975,7 @@ BEGIN
 			) AS PARTITIONED6 -- Parte 6
 
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2085,7 +2085,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2139,7 +2139,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ModoMultimodal -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_ModoMultimodal -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ModoMultimodal,NombreCombinacion,
@@ -2201,7 +2201,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2255,7 +2255,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_horario -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_horario -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					pico_horario,NombreCombinacion,
@@ -2317,7 +2317,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2371,7 +2371,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_Distancia_Modo -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_Distancia_Modo -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					Distancia, ModoMultimodal,NombreCombinacion,
@@ -2433,7 +2433,7 @@ BEGIN
 				OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 			) AS PARTITIONED6 -- Parte 6
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2487,7 +2487,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_Distancia_Modo_Horario -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_3_1_combinacion_corredor_utilizadas_Distancia_Modo_Horario -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				Distancia,pico_horario, ModoMultimodal,NombreCombinacion,
@@ -2550,7 +2550,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -2588,27 +2588,27 @@ BEGIN
 			PARTITIONED9.NombreCombinacion_Part9;';
 		EXEC sp_executesql @sql;
 		
-	-- Confirmar transacción
+	-- Confirmar transacciï¿½n
 	COMMIT TRANSACTION;
  END TRY
  BEGIN CATCH
  ROLLBACK TRANSACTION;
-	PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-  PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
+	PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+  PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
   PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-  PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
+  PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
  END CATCH;
 END;
 
 CREATE PROCEDURE _004_2_Estadisticas_Viajes_Alternativos
- @Database NVARCHAR(15), -- Parámetro de entrada para la base de datos
+ @Database NVARCHAR(15), -- Parï¿½metro de entrada para la base de datos
  @IdLinea NVARCHAR(50),
  @BasePares NVARCHAR(20) -- Nombre de la base de pares a crear
 AS
 BEGIN
 	DECLARE @sql NVARCHAR(MAX);
  BEGIN TRY
- -- Inicia la transacción
+ -- Inicia la transacciï¿½n
  BEGIN TRANSACTION;
 
 		-- 1. Base de viajes alternativos | _2_2_base_viajes_tc_0
@@ -2944,7 +2944,7 @@ BEGIN
 			v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 7. Calculo distribución de viajes por ModoMultimodal y Combinacion | _2_2_distribucion_MultiModal_ModoCombinacion_tc_0
+		-- 7. Calculo distribuciï¿½n de viajes por ModoMultimodal y Combinacion | _2_2_distribucion_MultiModal_ModoCombinacion_tc_0
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_MultiModal_ModoCombinacion_tc_0;
 		SELECT 
@@ -2971,7 +2971,7 @@ BEGIN
 			v.ModoMultimodal;';
 		EXEC sp_executesql @sql;
 
-		-- 8. Calculo distribución de viajes por Distancia y ModoMultimodal | _2_2_distribucion_distancia_MultiModal_tc_0
+		-- 8. Calculo distribuciï¿½n de viajes por Distancia y ModoMultimodal | _2_2_distribucion_distancia_MultiModal_tc_0
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_MultiModal_tc_0;
 		SELECT 
@@ -2997,7 +2997,7 @@ BEGIN
 			v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 9. Calculo distribución de viajes por ModoMultimodal, Combinacion y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_0
+		-- 9. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_0
 		SET @sql =
 			'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_0;
 			SELECT 
@@ -3023,7 +3023,7 @@ BEGIN
 				v.ModoMultimodal,v.ModoCombinacion,v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 10. Calculo distribución de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0
+		-- 10. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0
 		SET @sql =
 			'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0;
 			SELECT 
@@ -3049,7 +3049,7 @@ BEGIN
 				v.ModoMultimodal,v.ModoCombinacion,v.distancia,v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 11. Calculo de distribución de viajes por Horario y distancia | _2_2_distribucion_horario_distancia_tc_0
+		-- 11. Calculo de distribuciï¿½n de viajes por Horario y distancia | _2_2_distribucion_horario_distancia_tc_0
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_horario_distancia_tc_0;
 		SELECT 
@@ -3075,7 +3075,7 @@ BEGIN
 			v.pico_horario, v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 12. Calculo de distribución de viajes por horario y modo de combinacion | _2_2_distribucion_horario_ModoCombinacion_tc_0
+		-- 12. Calculo de distribuciï¿½n de viajes por horario y modo de combinacion | _2_2_distribucion_horario_ModoCombinacion_tc_0
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_horario_ModoCombinacion_tc_0;
 		SELECT 
@@ -3238,7 +3238,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3281,7 +3281,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ParOD, z_origen, z_destino, NombreCombinacion, distancia, CantidadRepeticiones, ModoMultimodal,
@@ -3348,7 +3348,7 @@ BEGIN
 		SET @sql = @sql + '
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3391,7 +3391,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Horario_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Horario_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino,NombreCombinacion, distancia, pico_horario, CantidadRepeticiones,
@@ -3458,7 +3458,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3501,7 +3501,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino, NombreCombinacion,distancia, ModoMultimodal, CantidadRepeticiones,
@@ -3566,7 +3566,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3609,7 +3609,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_horario_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_horario_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino,NombreCombinacion, distancia, ModoMultimodal, pico_horario, CantidadRepeticiones,
@@ -3671,7 +3671,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3781,7 +3781,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3835,7 +3835,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ModoMultimodal_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ModoMultimodal_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ModoMultimodal,NombreCombinacion,
@@ -3897,7 +3897,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -3951,7 +3951,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_horario_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_horario_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				pico_horario,NombreCombinacion,
@@ -4013,7 +4013,7 @@ BEGIN
 				OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 			) AS PARTITIONED6 -- Parte 6
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -4067,7 +4067,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				Distancia, ModoMultimodal,NombreCombinacion,
@@ -4129,7 +4129,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -4183,7 +4183,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_Horario_tc_0 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_Horario_tc_0 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					Distancia,pico_horario, ModoMultimodal,NombreCombinacion,
@@ -4246,7 +4246,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -4423,31 +4423,31 @@ BEGIN
 		WHERE NroFila <= 10;';
 		EXEC sp_executesql @sql; 
 
--- Confirmar transacción
+-- Confirmar transacciï¿½n
  COMMIT TRANSACTION;
 
  END TRY
  BEGIN CATCH
- -- Si ocurre un error, revertir la transacción
+ -- Si ocurre un error, revertir la transacciï¿½n
  ROLLBACK TRANSACTION;
-	PRINT 'Error en la transacción: '+ERROR_MESSAGE();
- 	PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-    PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
+	PRINT 'Error en la transacciï¿½n: '+ERROR_MESSAGE();
+ 	PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+    PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
     PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-    PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
+    PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
  END CATCH;
 END;
 
 
 CREATE PROCEDURE _005_2_Estadisticas_Viajes_Propios_en_el_Corredor
- @Database NVARCHAR(15), -- Parámetro de entrada para la base de datos
+ @Database NVARCHAR(15), -- Parï¿½metro de entrada para la base de datos
  @IdLinea NVARCHAR(50),
  @BasePares NVARCHAR(20) -- Nombre de la base de pares a crear
 AS
 BEGIN
 	DECLARE @sql NVARCHAR(MAX);
  BEGIN TRY
- -- Inicia la transacción
+ -- Inicia la transacciï¿½n
  BEGIN TRANSACTION;
 
 		-- 1. Base de viajes alternativos | _2_2_base_viajes_tc_1
@@ -4783,7 +4783,7 @@ BEGIN
 			v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 7. Calculo distribución de viajes por ModoMultimodal y Combinacion | _2_2_distribucion_MultiModal_ModoCombinacion_tc_1
+		-- 7. Calculo distribuciï¿½n de viajes por ModoMultimodal y Combinacion | _2_2_distribucion_MultiModal_ModoCombinacion_tc_1
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_MultiModal_ModoCombinacion_tc_1;
 		SELECT 
@@ -4810,7 +4810,7 @@ BEGIN
 			v.ModoMultimodal;';
 		EXEC sp_executesql @sql;
 
-		-- 8. Calculo distribución de viajes por Distancia y ModoMultimodal | _2_2_distribucion_distancia_MultiModal_tc_1
+		-- 8. Calculo distribuciï¿½n de viajes por Distancia y ModoMultimodal | _2_2_distribucion_distancia_MultiModal_tc_1
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_MultiModal_tc_1;
 		SELECT 
@@ -4836,7 +4836,7 @@ BEGIN
 			v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 9. Calculo distribución de viajes por ModoMultimodal, Combinacion y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_1
+		-- 9. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_1
 		SET @sql =
 			'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_ModoMultiModal_Combinacion_horario_tc_1;
 			SELECT 
@@ -4862,7 +4862,7 @@ BEGIN
 				v.ModoMultimodal,v.ModoCombinacion,v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 10. Calculo distribución de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0
+		-- 10. Calculo distribuciï¿½n de viajes por ModoMultimodal, Combinacion, distancia y horario | _2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0
 		SET @sql =
 			'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_distancia_ModoMultiModal_Combinacion_distancia_horario_0;
 			SELECT 
@@ -4888,7 +4888,7 @@ BEGIN
 				v.ModoMultimodal,v.ModoCombinacion,v.distancia,v.pico_horario;';
 		EXEC sp_executesql @sql;
 
-		-- 11. Calculo de distribución de viajes por Horario y distancia | _2_2_distribucion_horario_distancia_tc_1
+		-- 11. Calculo de distribuciï¿½n de viajes por Horario y distancia | _2_2_distribucion_horario_distancia_tc_1
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_horario_distancia_tc_1;
 		SELECT 
@@ -4914,7 +4914,7 @@ BEGIN
 			v.pico_horario, v.distancia;';
 		EXEC sp_executesql @sql;
 
-		-- 12. Calculo de distribución de viajes por horario y modo de combinacion | _2_2_distribucion_horario_ModoCombinacion_tc_1
+		-- 12. Calculo de distribuciï¿½n de viajes por horario y modo de combinacion | _2_2_distribucion_horario_ModoCombinacion_tc_1
 		SET @sql =
 		'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._2_2_distribucion_horario_ModoCombinacion_tc_1;
 		SELECT 
@@ -5077,7 +5077,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5120,7 +5120,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				ParOD, z_origen, z_destino, NombreCombinacion, distancia, CantidadRepeticiones, ModoMultimodal,
@@ -5187,7 +5187,7 @@ BEGIN
 		SET @sql = @sql + '
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5230,7 +5230,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Horario_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Horario_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino,NombreCombinacion, distancia, pico_horario, CantidadRepeticiones,
@@ -5297,7 +5297,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5340,7 +5340,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino, NombreCombinacion,distancia, ModoMultimodal, CantidadRepeticiones,
@@ -5405,7 +5405,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5448,7 +5448,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_horario_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ParOD_Modo_Distancia_horario_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ParOD, z_origen, z_destino,NombreCombinacion, distancia, ModoMultimodal, pico_horario, CantidadRepeticiones,
@@ -5510,7 +5510,7 @@ BEGIN
 		) AS PARTITIONED6 -- Parte 6
 
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5620,7 +5620,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5674,7 +5674,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ModoMultimodal_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_ModoMultimodal_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					ModoMultimodal,NombreCombinacion,
@@ -5736,7 +5736,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5790,7 +5790,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_horario_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_horario_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				pico_horario,NombreCombinacion,
@@ -5852,7 +5852,7 @@ BEGIN
 				OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 			) AS PARTITIONED6 -- Parte 6
 			OUTER APPLY (
-				-- Dividir NombreCombinacion en la séptima parte
+				-- Dividir NombreCombinacion en la sï¿½ptima parte
 				SELECT 
 					value AS NombreCombinacion_Part7
 				FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -5906,7 +5906,7 @@ BEGIN
 			PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 			PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 			PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+		INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 		FROM (
 			SELECT 
 				Distancia, ModoMultimodal,NombreCombinacion,
@@ -5968,7 +5968,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -6022,7 +6022,7 @@ BEGIN
 				PARTITIONED7.NombreCombinacion_Part7 AS Etapa7,
 				PARTITIONED8.NombreCombinacion_Part8 AS Etapa8,
 				PARTITIONED9.NombreCombinacion_Part9 AS Etapa9
-			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_Horario_tc_1 -- Lineas Más Utilizadas ParOD y Modo
+			INTO '+QUOTENAME(@Database)+'.dbo._2_2_1_combinacion_utilizadas_Distancia_Modo_Horario_tc_1 -- Lineas Mï¿½s Utilizadas ParOD y Modo
 			FROM (
 				SELECT 
 					Distancia,pico_horario, ModoMultimodal,NombreCombinacion,
@@ -6085,7 +6085,7 @@ BEGIN
 			OFFSET 5 ROWS FETCH NEXT 1 ROWS ONLY
 		) AS PARTITIONED6 -- Parte 6
 		OUTER APPLY (
-			-- Dividir NombreCombinacion en la séptima parte
+			-- Dividir NombreCombinacion en la sï¿½ptima parte
 			SELECT 
 				value AS NombreCombinacion_Part7
 			FROM STRING_SPLIT(NombreCombinacion, ''-'')
@@ -6262,18 +6262,18 @@ BEGIN
 		WHERE NroFila <= 10;';
 		EXEC sp_executesql @sql; 
 
--- Confirmar transacción
+-- Confirmar transacciï¿½n
  COMMIT TRANSACTION;
 
  END TRY
  BEGIN CATCH
- -- Si ocurre un error, revertir la transacción
+ -- Si ocurre un error, revertir la transacciï¿½n
  ROLLBACK TRANSACTION;
-	PRINT 'Error en la transacción: '+ERROR_MESSAGE();
- 	PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-    PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
+	PRINT 'Error en la transacciï¿½n: '+ERROR_MESSAGE();
+ 	PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+    PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10);
     PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-    PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
+    PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10);
  END CATCH;
 END;
 
@@ -6378,7 +6378,7 @@ BEGIN
 		SET @sql = @sql + '
 				CASE
 					WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-					WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+					WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 					WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 					WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 					WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -6560,15 +6560,15 @@ BEGIN
 		PRINT @sql;
 		EXEC sp_executesql @sql;
 
-	-- Confirmar transacción
+	-- Confirmar transacciï¿½n
 	COMMIT TRANSACTION;
  END TRY
  BEGIN CATCH
  ROLLBACK TRANSACTION;
-    PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-    PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10));
+    PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+    PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10));
     PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-    PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10));
+    PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10));
  END CATCH;
 END;
 
@@ -6677,7 +6677,7 @@ BEGIN
 			'v.CombinacionesViaje, v.NombreCombinacion, v.ModoCombinacion, v.id_tarjeta, v.id_viaje,
 			CASE
 				WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 				WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 				WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 				WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -6720,7 +6720,7 @@ BEGIN
 	SET @sql = @sql +
 		'CASE
 			WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
-			WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_mañana''
+			WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_maï¿½ana''
 			WHEN v.hora BETWEEN 10 AND 16 THEN ''3 - mediodia''
 			WHEN v.hora BETWEEN 16 AND 19 THEN ''4 - pico_tarde''
 			WHEN v.hora BETWEEN 19 AND 24 THEN ''5 - noche''
@@ -7089,15 +7089,15 @@ BEGIN
 		DELETE FROM '+QUOTENAME(@database)+'.dbo._2_base_zonas_unicas_totales WHERE Zona = '''' OR Zona IS NULL;';
 	print @sql ;EXEC sp_executesql @sql;
 
-	-- Confirmar transacción
+	-- Confirmar transacciï¿½n
 	COMMIT TRANSACTION;
  END TRY
  BEGIN CATCH
  ROLLBACK TRANSACTION;
-    PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
-    PRINT 'Número de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10));
+    PRINT 'Error en la transacciï¿½n: ' + ERROR_MESSAGE();
+    PRINT 'Nï¿½mero de error: ' + CAST(ERROR_NUMBER() AS NVARCHAR(10));
     PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
-    PRINT 'Línea: ' + CAST(ERROR_LINE() AS NVARCHAR(10));
+    PRINT 'Lï¿½nea: ' + CAST(ERROR_LINE() AS NVARCHAR(10));
 END CATCH;
 END;
 
