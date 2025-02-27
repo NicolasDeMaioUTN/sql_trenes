@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtro de Shapes</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
+  <style>
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Filtrar Shapes</h1>
+  <div>
+    <label>
+      <input type="checkbox" id="linea1" value="Línea 1"> Línea 1
+    </label>
+    <label>
+      <input type="checkbox" id="linea2" value="Línea 2"> Línea 2
+    </label>
+    <button onclick="aplicarFiltro()">Aplicar Filtro</button>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
+  <script>
+    function aplicarFiltro() {
+      const lineas = [];
+      if (document.getElementById('linea1').checked) {
+        lineas.push('Línea 1');
+      }
+      if (document.getElementById('linea2').checked) {
+        lineas.push('Línea 2');
+      }
+
+      // Enviar solicitud al backend
+      fetch('/api/filtrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineas }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          renderizarMapa(data.url_wms);
+        })
+        .catch(error => {
+          console.error('Error al aplicar filtro:', error);
+        });
+    }
+
+    function renderizarMapa(urlWms) {
+      const map = new Map({
+        target: 'map',
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+          new TileLayer({
+            source: new TileWMS({
+              url: urlWms,
+              params: { LAYERS: 'tu_capa', TILED: true },
+            }),
+          }),
+        ],
+        view: new View({
+          center: fromLonLat([-58.3816, -34.6037]),  // Centrar en Buenos Aires
+          zoom: 10,
+        }),
+      });
+    }
+  </script>
+</body>
+</html>
