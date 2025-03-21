@@ -16,7 +16,10 @@ id_linea		   Nombre_linea
 1160               ROCA_UNIVERSITARIO	ok                           
 1161               ROCA_CANUELAS_MONTE  ok                        
 1162               ROCA_KORN_CHASCOMUS  ok                        
-1250               ROCA_CANUELAS_LOBOS  
+1250               ROCA_CANUELAS_LOBOS  ok
+
+136
+88                  
 
 (512,1160,1161,1162,1250)				   ROCA_AGG				ok
 (428,430,431,1146)						   MITRE_AGG			ok

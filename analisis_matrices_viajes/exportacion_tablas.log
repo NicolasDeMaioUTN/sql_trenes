@@ -654,3 +654,111 @@
 2025-03-21 15:45:55,233 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea48\Linea48 - 2025-03-21_15-45-54\3 - Analisis de Zonas
 2025-03-21 15:45:55,310 - ERROR - Error al conectar con la base de datos: (pyodbc.InterfaceError) ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'DESKTOP-M88PORG\\Nico\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "Linea48" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'DESKTOP-M88PORG\\Nico\'. (18456); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "Linea48" requested by the login. The login failed. (4060)')
 (Background on this error at: https://sqlalche.me/e/20/rvf5)
+2025-03-21 15:50:45,271 - INFO - Se creó la subcarpeta del esquema: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45
+2025-03-21 15:50:45,290 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\1 - Viajes Propios
+2025-03-21 15:50:45,305 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos
+2025-03-21 15:50:45,321 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\a - Viajes del Corredor
+2025-03-21 15:50:45,339 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\b - Viajes Alternativos
+2025-03-21 15:50:45,359 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\b - Viajes Alternativos\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 15:50:45,375 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\b - Viajes Alternativos\b - Combinacion de viaje mas utilizada
+2025-03-21 15:50:45,392 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\c - Viajes Propios en el Corredor
+2025-03-21 15:50:45,406 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 15:50:45,436 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\b - Combinacion de viaje mas utilizada
+2025-03-21 15:50:45,456 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\3 - Analisis de Zonas
+2025-03-21 15:50:45,640 - INFO - Conexión exitosa con la base de datos.
+2025-03-21 15:50:45,748 - INFO - Se obtuvieron 11 tablas del esquema 'Linea46.dbo'.
+2025-03-21 15:50:45,748 - INFO - Iniciando la exportación de la tabla '_1_base_viajes' a las 2025-03-21_15-50-45...
+2025-03-21 15:51:01,060 - INFO - Tabla '_1_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\1 - Viajes Propios\_1_base_viajes.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:51:01,062 - INFO - Iniciando la exportación de la tabla '_1_base_zonas_unicas_totales' a las 2025-03-21_15-50-45...
+2025-03-21 15:51:02,156 - INFO - Tabla '_1_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\1 - Viajes Propios\_1_base_zonas_unicas_totales.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:51:02,156 - INFO - Iniciando la exportación de la tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' a las 2025-03-21_15-50-45...
+2025-03-21 15:51:10,327 - INFO - Tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_combinaciones_por_linea_porParOD_TC_1.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:51:10,327 - INFO - Iniciando la exportación de la tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' a las 2025-03-21_15-50-45...
+2025-03-21 15:51:21,406 - INFO - Tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_etapas_por_linea_por_ParOD_TC_1.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:51:21,407 - INFO - Iniciando la exportación de la tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' a las 2025-03-21_15-50-45...
+2025-03-21 15:51:51,266 - INFO - Tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\2 - Viajes Alternativos\b - Viajes Alternativos\_2_2_base_combinaciones_por_linea_porParOD_TC_0.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:51:51,266 - INFO - Iniciando la exportación de la tabla '_2_base_combinaciones_por_linea_porParOD' a las 2025-03-21_15-50-45...
+2025-03-21 15:52:28,516 - INFO - Tabla '_2_base_combinaciones_por_linea_porParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_combinaciones_por_linea_porParOD.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:52:28,529 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD' a las 2025-03-21_15-50-45...
+2025-03-21 15:54:03,139 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_etapas_por_linea_por_ParOD.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:54:03,139 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' a las 2025-03-21_15-50-45...
+2025-03-21 15:55:19,532 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_etapas_por_linea_por_ParOD_TC_0.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:55:19,532 - INFO - Iniciando la exportación de la tabla '_2_base_viajes' a las 2025-03-21_15-50-45...
+2025-03-21 15:57:47,936 - INFO - Tabla '_2_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_viajes.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:57:47,936 - INFO - Iniciando la exportación de la tabla '_2_base_viajes_top_lineas' a las 2025-03-21_15-50-45...
+2025-03-21 15:59:20,017 - INFO - Tabla '_2_base_viajes_top_lineas' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_viajes_top_lineas.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:59:20,017 - INFO - Iniciando la exportación de la tabla '_2_base_zonas_unicas_totales' a las 2025-03-21_15-50-45...
+2025-03-21 15:59:21,703 - INFO - Tabla '_2_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_15-50-45\_2_base_zonas_unicas_totales.xlsx' a las 2025-03-21_15-50-45.
+2025-03-21 15:59:21,703 - INFO - Proceso de exportación completado para el esquema 'Linea46.dbo' a la hora 2025-03-21_15-50-45.
+2025-03-21 16:00:25,921 - INFO - Se creó la subcarpeta del esquema: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25
+2025-03-21 16:00:25,936 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\1 - Viajes Propios
+2025-03-21 16:00:25,968 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos
+2025-03-21 16:00:25,984 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\a - Viajes del Corredor
+2025-03-21 16:00:26,012 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\b - Viajes Alternativos
+2025-03-21 16:00:26,030 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\b - Viajes Alternativos\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 16:00:26,063 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\b - Viajes Alternativos\b - Combinacion de viaje mas utilizada
+2025-03-21 16:00:26,084 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\c - Viajes Propios en el Corredor
+2025-03-21 16:00:26,113 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 16:00:26,130 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\b - Combinacion de viaje mas utilizada
+2025-03-21 16:00:26,149 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\3 - Analisis de Zonas
+2025-03-21 16:00:26,326 - INFO - Conexión exitosa con la base de datos.
+2025-03-21 16:00:26,390 - INFO - Se obtuvieron 11 tablas del esquema 'Linea148.dbo'.
+2025-03-21 16:00:26,391 - INFO - Iniciando la exportación de la tabla '_1_base_viajes' a las 2025-03-21_16-00-25...
+2025-03-21 16:01:05,812 - INFO - Tabla '_1_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\1 - Viajes Propios\_1_base_viajes.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:01:05,812 - INFO - Iniciando la exportación de la tabla '_1_base_zonas_unicas_totales' a las 2025-03-21_16-00-25...
+2025-03-21 16:01:06,642 - INFO - Tabla '_1_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\1 - Viajes Propios\_1_base_zonas_unicas_totales.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:01:06,643 - INFO - Iniciando la exportación de la tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' a las 2025-03-21_16-00-25...
+2025-03-21 16:01:26,127 - INFO - Tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_combinaciones_por_linea_porParOD_TC_1.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:01:26,137 - INFO - Iniciando la exportación de la tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' a las 2025-03-21_16-00-25...
+2025-03-21 16:01:53,514 - INFO - Tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_etapas_por_linea_por_ParOD_TC_1.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:01:53,514 - INFO - Iniciando la exportación de la tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' a las 2025-03-21_16-00-25...
+2025-03-21 16:02:48,343 - INFO - Tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\2 - Viajes Alternativos\b - Viajes Alternativos\_2_2_base_combinaciones_por_linea_porParOD_TC_0.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:02:48,343 - INFO - Iniciando la exportación de la tabla '_2_base_combinaciones_por_linea_porParOD' a las 2025-03-21_16-00-25...
+2025-03-21 16:04:05,654 - INFO - Tabla '_2_base_combinaciones_por_linea_porParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_combinaciones_por_linea_porParOD.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:04:05,654 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD' a las 2025-03-21_16-00-25...
+2025-03-21 16:07:13,669 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_etapas_por_linea_por_ParOD.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:07:13,670 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' a las 2025-03-21_16-00-25...
+2025-03-21 16:09:29,061 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_etapas_por_linea_por_ParOD_TC_0.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:09:29,061 - INFO - Iniciando la exportación de la tabla '_2_base_viajes' a las 2025-03-21_16-00-25...
+2025-03-21 16:14:14,653 - INFO - Tabla '_2_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_viajes.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:14:14,654 - INFO - Iniciando la exportación de la tabla '_2_base_viajes_top_lineas' a las 2025-03-21_16-00-25...
+2025-03-21 16:17:05,125 - INFO - Tabla '_2_base_viajes_top_lineas' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_viajes_top_lineas.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:17:05,125 - INFO - Iniciando la exportación de la tabla '_2_base_zonas_unicas_totales' a las 2025-03-21_16-00-25...
+2025-03-21 16:17:06,953 - INFO - Tabla '_2_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea148\Linea148 - 2025-03-21_16-00-25\_2_base_zonas_unicas_totales.xlsx' a las 2025-03-21_16-00-25.
+2025-03-21 16:17:06,953 - INFO - Proceso de exportación completado para el esquema 'Linea148.dbo' a la hora 2025-03-21_16-00-25.
+2025-03-21 16:27:52,992 - INFO - Se creó la subcarpeta del esquema: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52
+2025-03-21 16:27:53,008 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\1 - Viajes Propios
+2025-03-21 16:27:53,044 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos
+2025-03-21 16:27:53,063 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\a - Viajes del Corredor
+2025-03-21 16:27:53,100 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\b - Viajes Alternativos
+2025-03-21 16:27:53,115 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\b - Viajes Alternativos\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 16:27:53,140 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\b - Viajes Alternativos\b - Combinacion de viaje mas utilizada
+2025-03-21 16:27:53,184 - INFO - Se creó la subcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\c - Viajes Propios en el Corredor
+2025-03-21 16:27:53,225 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\a - Linea mas utilizada por cantidad de etapas
+2025-03-21 16:27:53,245 - INFO - Se creó la subsubcarpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\b - Combinacion de viaje mas utilizada
+2025-03-21 16:27:53,290 - INFO - Se creó la carpeta: Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\3 - Analisis de Zonas
+2025-03-21 16:27:54,997 - INFO - Conexión exitosa con la base de datos.
+2025-03-21 16:27:55,738 - INFO - Se obtuvieron 11 tablas del esquema 'Linea46.dbo'.
+2025-03-21 16:27:55,738 - INFO - Iniciando la exportación de la tabla '_1_base_viajes' a las 2025-03-21_16-27-52...
+2025-03-21 16:28:13,468 - INFO - Tabla '_1_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\1 - Viajes Propios\_1_base_viajes.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:28:13,468 - INFO - Iniciando la exportación de la tabla '_1_base_zonas_unicas_totales' a las 2025-03-21_16-27-52...
+2025-03-21 16:28:14,820 - INFO - Tabla '_1_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\1 - Viajes Propios\_1_base_zonas_unicas_totales.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:28:14,821 - INFO - Iniciando la exportación de la tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' a las 2025-03-21_16-27-52...
+2025-03-21 16:28:23,094 - INFO - Tabla '_2_1_base_combinaciones_por_linea_porParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_combinaciones_por_linea_porParOD_TC_1.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:28:23,094 - INFO - Iniciando la exportación de la tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' a las 2025-03-21_16-27-52...
+2025-03-21 16:28:34,312 - INFO - Tabla '_2_1_base_etapas_por_linea_por_ParOD_TC_1' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\c - Viajes Propios en el Corredor\_2_1_base_etapas_por_linea_por_ParOD_TC_1.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:28:34,312 - INFO - Iniciando la exportación de la tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' a las 2025-03-21_16-27-52...
+2025-03-21 16:29:05,547 - INFO - Tabla '_2_2_base_combinaciones_por_linea_porParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\2 - Viajes Alternativos\b - Viajes Alternativos\_2_2_base_combinaciones_por_linea_porParOD_TC_0.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:29:05,547 - INFO - Iniciando la exportación de la tabla '_2_base_combinaciones_por_linea_porParOD' a las 2025-03-21_16-27-52...
+2025-03-21 16:29:44,346 - INFO - Tabla '_2_base_combinaciones_por_linea_porParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_combinaciones_por_linea_porParOD.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:29:44,346 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD' a las 2025-03-21_16-27-52...
+2025-03-21 16:31:20,158 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_etapas_por_linea_por_ParOD.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:31:20,158 - INFO - Iniciando la exportación de la tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' a las 2025-03-21_16-27-52...
+2025-03-21 16:32:37,157 - INFO - Tabla '_2_base_etapas_por_linea_por_ParOD_TC_0' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_etapas_por_linea_por_ParOD_TC_0.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:32:37,172 - INFO - Iniciando la exportación de la tabla '_2_base_viajes' a las 2025-03-21_16-27-52...
+2025-03-21 16:35:22,500 - INFO - Tabla '_2_base_viajes' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_viajes.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:35:22,517 - INFO - Iniciando la exportación de la tabla '_2_base_viajes_top_lineas' a las 2025-03-21_16-27-52...
+2025-03-21 16:36:51,578 - INFO - Tabla '_2_base_viajes_top_lineas' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_viajes_top_lineas.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:36:51,578 - INFO - Iniciando la exportación de la tabla '_2_base_zonas_unicas_totales' a las 2025-03-21_16-27-52...
+2025-03-21 16:36:53,125 - INFO - Tabla '_2_base_zonas_unicas_totales' exportada exitosamente a 'Z:\Analisis Urbantrips\Descarga\Linea46\Linea46 - 2025-03-21_16-27-52\_2_base_zonas_unicas_totales.xlsx' a las 2025-03-21_16-27-52.
+2025-03-21 16:36:53,811 - INFO - Proceso de exportación completado para el esquema 'Linea46.dbo' a la hora 2025-03-21_16-27-52.
