@@ -30,8 +30,7 @@ ESQUEMA = 'dbo'
 directorio_destino = r'Z:\Analisis Urbantrips\Descarga'
 
 # Lista de bases de datos a procesar
-BASES_DE_DATOS = ['SARMIENTO','MITRE','SUAREZ','MITRE_TIGRE','MITRE_ZARATE','URQUIZA','BELGRANO_SUR','ROCA','SAN_MARTIN','BELGRANO_NORTE','MITRE_CAPILLA',
-                  'ROCA_UNIVERSITARIO','ROCA_CANUELAS_MONTE','ROCA_KORN_CHASCOMUS','ROCA_CANUELAS_LOBOS','ROCA_AGG','MITRE_AGG']  # Añade los nombres de las bases de datos
+BASES_DE_DATOS = ['Linea88','Linea136']  # Añade los nombres de las bases de datos
 
 
 # Definir las carpetas principales y subcarpetas

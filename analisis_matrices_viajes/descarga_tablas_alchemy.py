@@ -5,6 +5,11 @@ import logging
 from datetime import datetime
 from openpyxl import load_workbook
 
+SERVER = r'DESKTOP-M88PORG\NICO_SUBE'
+DATABASE = 'Linea48'
+ESQUEMA = 'dbo'
+directorio_destino = r'Z:\Analisis Urbantrips\Descarga'
+
 # Configuración del logging
 logging.basicConfig(
     filename='exportacion_tablas.log',
@@ -25,10 +30,7 @@ def eliminar_columnas_int_con_zeros(df):
     df = df.drop(columns=columnas_a_eliminar)
     return df
 
-SERVER = r'DESKTOP-M88PORG\NICO_SUBE'
-DATABASE = 'Mitre_AGG'
-ESQUEMA = 'dbo'
-directorio_destino = r'Z:\Analisis Urbantrips\Descarga'
+
 
 # Crear la subcarpeta del esquema
 subcarpeta_destino = os.path.join(directorio_destino, DATABASE, DATABASE + ' - ' + fecha_hora_actual)
