@@ -5,36 +5,15 @@ import logging
 from datetime import datetime
 from openpyxl import load_workbook
 from telegram import Bot
-import asyncio
 from telegram import Bot
-
-async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA):
-    bot = Bot(token=TOKEN)
+import asyncio
+from telegram import Bot 
     
-    # Calculate the duration between start and end times
-    duracion = hora_fin - hora_inicio
-    
-    # Create the message
-    mensaje = f"""
-        *Análisis de Viajes Urbantrips!*
-        Linea: {DATABASE}
-        *Fecha y Hora de Inicio:* {hora_inicio.strftime("%Y-%m-%d %H:%M:%S")}
-        *Fecha y Hora de Fin:* {hora_fin.strftime("%Y-%m-%d %H:%M:%S")}
-        *Duracion:* {duracion}
-        *Descripción:* La función se ejecutó correctamente, realizando tareas específicas durante el proceso.   
-        ----
-        ¡Todo ha finalizado correctamente!
-        "Todas las tablas del esquema '{DATABASE}.{ESQUEMA}' han sido exportadas a la subcarpeta '{subcarpeta_destino}' con fecha y hora '{fecha_hora_actual}'.
-    """
-    
-    # Send the message asynchronously
-    await bot.send_message(chat_id=CHAT_ID, text=mensaje)
-
 TOKEN = "7806021838:AAGLwfGfiPp_Sl39kg-R-LbAKiLTMN8Z-jg"    # Aquí colocas tu token de Bot de Telegram
 CHAT_ID = "5953769668"    # Aquí el chat_id de tu chat o usuario de Telegram
 hora_inicio = datetime.now()
 SERVER = r'DESKTOP-M88PORG\NICO_SUBE'
-DATABASE = 'Linea46'
+DATABASE = 'Linea136'
 ESQUEMA = 'dbo'
 directorio_destino = r'Z:\Analisis Urbantrips\Descarga'
 
@@ -78,11 +57,15 @@ estructura_carpetas = {
 }
 
 subcarpetas_adicionales = {
-    "c - Viajes Propios en el Corredor": [
+    "a - Viajes del Corredor": [
         "a - Linea mas utilizada por cantidad de etapas",
         "b - Combinacion de viaje mas utilizada"
     ],
     "b - Viajes Alternativos": [
+        "a - Linea mas utilizada por cantidad de etapas",
+        "b - Combinacion de viaje mas utilizada"
+    ],
+    "c - Viajes Propios en el Corredor": [
         "a - Linea mas utilizada por cantidad de etapas",
         "b - Combinacion de viaje mas utilizada"
     ]
@@ -127,6 +110,10 @@ def obtener_ruta_destino(tabla_nombre):
         return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos","a - Linea mas utilizada por cantidad de etapas")
     elif tabla_nombre.startswith("_2_2_"):
         return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos")
+    elif tabla_nombre.startswith("_2_3_1_"):
+        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","b - Combinacion de viaje mas utilizada")
+    elif tabla_nombre.startswith("_2_3_2_"):
+        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","a - Linea mas utilizada por cantidad de etapas")
     elif tabla_nombre.startswith("_2_3_"):
         return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor")
     elif tabla_nombre.startswith("_3_"):
@@ -198,6 +185,4 @@ for tabla in tablas:
     except Exception as e:
         logging.error(f"Error al exportar la tabla '{tabla}': {e}")
 
-hora_fin = datetime.now()
-enviar_mensaje(hora_inicio,hora_fin)
 logging.info(f"Proceso de exportación completado para el esquema '{DATABASE}.{ESQUEMA}' a la hora {fecha_hora_actual}.")

@@ -1,3 +1,20 @@
+USE [Base]
+GO
+/****** Object:  StoredProcedure [dbo].[_001_1_Viajes_Propios]    Script Date: 26/3/2025 12:42:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[_001_1_Viajes_Propios]
+ @Database NVARCHAR(15), -- Base de datos = Linea de analisis
+ @IdLinea NVARCHAR(50), -- Se debe utilizar id_linea "123.0"
+ @BasePares NVARCHAR(20) -- Nombre de la base de pares a crear
+AS
 BEGIN
  BEGIN TRY
 	BEGIN TRANSACTION;
@@ -23,8 +40,8 @@ BEGIN
 		INTO '+QUOTENAME(@Database)+'.dbo._1_viajes
 		FROM [Base].[dbo].[viajes] v
 		LEFT JOIN [Base].[dbo].[etapas] e ON v.id_tarjeta = e.id_tarjeta AND v.id_viaje = e.id_viaje
-		LEFT JOIN [Base].[dbo].[microzonas] o ON v.h3_o = o.id -- Se cambió de IdO a h3_o
-		LEFT JOIN [Base].[dbo].[microzonas] d ON v.h3_d = d.id -- Se cambió de IdD a h3_d
+		LEFT JOIN [Base].[dbo].[microzonas] o ON v.ido = o.id -- Se cambió de IdO a h3_o
+		LEFT JOIN [Base].[dbo].[microzonas] d ON v.idd = d.id -- Se cambió de IdD a h3_d
 		LEFT JOIN [Base].[dbo].[lineas] l ON e.id_linea = l.id_linea
 		WHERE EXISTS (
 			SELECT 1
@@ -34,13 +51,11 @@ BEGIN
 				AND e2.id_linea = '+QUOTENAME(@IdLinea,'''')+' -- Linea Buscada
 		)
 		GROUP BY v.IdO, v.IdD, v.distance_h3, v.distance_osm_drive, v.id_tarjeta, v.id_viaje, v.hora, o.zonas, d.zonas, v.factor_expansion_linea, v.tren, v.autobus, v.metro, v.cant_etapas;';
-		PRINT @sql;
 		EXEC sp_executesql @sql, N'@IdLinea NVARCHAR(10)', @IdLinea;
 
 
 		-- 2. Borro Base Viajes
 		SET @sql = 'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._1_base_viajes;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		-- 3. Creo Base Viajes
@@ -86,7 +101,7 @@ BEGIN
 				WHEN AVG(CAST(v.distance_osm_drive AS FLOAT)) < 2 THEN ''00---02''
 			END AS distancia
 			';
-		 SET @sql = @sql + '
+		SET @sql = @sql + '
 			,CASE
 				WHEN v.hora BETWEEN 0 AND 7 THEN ''1 - madrugada''
 				WHEN v.hora BETWEEN 7 AND 10 THEN ''2 - pico_ma�ana''
@@ -137,17 +152,14 @@ BEGIN
 			v.ViajesExpandidos,
 			v.tren, v.autobus, v.metro, v.cant_etapas,
 			v.distance_h3, v.distance_osm_drive;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		-- 4. Borro Viajes inicial
 		SET @sql = 'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.[dbo]._1_viajes;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		-- 5. Creo Base Pares OD
 		SET @sql = 'DROP TABLE IF EXISTS Base.[dbo].'+QUOTENAME(@BasePares)+';';		
-		PRINT @sql;
 		EXEC sp_executesql @sql;		
 
 		SET @sql = 
@@ -156,16 +168,13 @@ BEGIN
 			FROM '+QUOTENAME(@Database)+'.[dbo].[_1_base_viajes] b
 			WHERE (b.IdO <> '''' OR b.IdO IS NOT NULL) 
 			AND (b.IdD <> '''' OR b.IdD IS NOT NULL);';
-		PRINT @sql;
 		EXEC sp_executesql @sql;		
 			
 		SET @sql = 'DELETE FROM Base.[dbo].'+QUOTENAME(@BasePares)+' WHERE ParOD = '''' OR ParOD IS NULL;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		-- 6. Zonificacion de Viajes Propios
 		SET @sql = 'DROP TABLE IF EXISTS '+QUOTENAME(@Database)+'.dbo._1_base_zonas_unicas_totales;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		SET @sql = 
@@ -264,11 +273,9 @@ BEGIN
 			FULL OUTER JOIN ViajesPorZonaDestino d ON o.Zona = d.Zona 
 			GROUP BY o.Zona, o.Nombre
 			ORDER BY o.Nombre;';	 
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 		SET @sql = 'DELETE FROM '+QUOTENAME(@Database)+'.[dbo]._1_base_zonas_unicas_totales WHERE Zona = '''' OR Zona IS NULL;';
-		PRINT @sql;
 		EXEC sp_executesql @sql;
 
 	-- Confirmar transacci�n
@@ -277,6 +284,6 @@ BEGIN
  BEGIN CATCH
  ROLLBACK TRANSACTION;
 	PRINT 'Error en la transacci�n: ' + ERROR_MESSAGE();
-  PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
+ 	PRINT 'Procedimiento: ' + ERROR_PROCEDURE();
   END CATCH;
 END;
