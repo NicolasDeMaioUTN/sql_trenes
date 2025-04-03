@@ -38,7 +38,6 @@ DatosAgrupados AS (
         DATEPART(HOUR, CONVERT(TIME, Fecha)) AS hora, 
         l_codif,
         COUNT(id_servicio) AS Servicios,
-        COUNT(dominio) AS CantVehiculos,
         SUM(TRY_CAST(CantPax AS INT)) AS TotalPax
     FROM BaseServicios
     GROUP BY 
@@ -46,8 +45,8 @@ DatosAgrupados AS (
         l_codif
 )
 SELECT 
-    Metricas,
     l_codif AS Codigo,
+    Metricas,
     [00], [01], [02], [03], [04], [05], [06]
 FROM (
     SELECT 
@@ -59,7 +58,6 @@ FROM (
     CROSS APPLY (
         VALUES 
             ('Servicios', Servicios),
-            ('CantVehiculos', CantVehiculos),
             ('TotalPax', TotalPax)
     ) AS Unpivoted(Metricas, Valor)
 ) AS SourceData
@@ -67,4 +65,4 @@ PIVOT (
     SUM(Valor)
     FOR hora IN ([00], [01], [02], [03], [04], [05], [06])
 ) AS PivotTable
-ORDER BY Metricas, Codigo;
+ORDER BY Codigo,Metricas;
