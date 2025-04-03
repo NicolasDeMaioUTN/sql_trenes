@@ -54,14 +54,13 @@ id_linea		   Nombre_linea
 923                BSAS_LINEA_153       Linea153    ok
 
 
-
 */
 CREATE DATABASE MITRE;   
-EXEC BASE.DBO._001_1_Viajes_Propios 'MITRE','428','Base_MITRE'
-EXEC BASE.DBO._002_2_Datos_Basicos 'MITRE','428','Base_MITRE'
-EXEC BASE.DBO._003_2_Estadisticas_Corredor 'MITRE','428','Base_MITRE'
-EXEC BASE.DBO._004_2_Estadisticas_Viajes_Alternativos 'MITRE','428','Base_MITRE'
-EXEC BASE.DBO._005_2_Estadisticas_Viajes_Propios_en_el_Corredor 'MITRE','428','Base_MITRE'
+EXEC BASE.DBO._001_1_Viajes_Propios_h3 'MITRE','428','Base_MITRE'
+EXEC BASE.DBO._002_2_Datos_Basicos_h3 'MITRE','428','Base_MITRE'
+EXEC BASE.DBO._003_2_Estadisticas_Corredor_h3 'MITRE','428','Base_MITRE'
+EXEC BASE.DBO._004_2_Estadisticas_Viajes_Alternativos_h3 'MITRE','428','Base_MITRE'
+EXEC BASE.DBO._005_2_Estadisticas_Viajes_Propios_en_el_Corredor_3 'MITRE','428','Base_MITRE'
 
 CREATE DATABASE MITRE_AGG 
 EXEC BASE.DBO._001_1_Viajes_Propios 'MITRE_AGG','428,429,430,431,1146','Base_OD_MITRE_AGG'

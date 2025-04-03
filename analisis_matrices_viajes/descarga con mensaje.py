@@ -25,7 +25,7 @@ TOKEN = "7806021838:AAGLwfGfiPp_Sl39kg-R-LbAKiLTMN8Z-jg"    # Aquí colocas tu t
 CHAT_ID = "5953769668"    # Aquí el chat_id de tu chat o usuario de Telegram
 hora_inicio = datetime.now()
 SERVER = r'DESKTOP-M88PORG\NICO_SUBE'
-DATABASE = 'Linea136'
+DATABASE = 'Hex_Procrear'
 ESQUEMA = 'dbo'
 directorio_destino = r'Z:\Analisis Urbantrips\Descarga'
 

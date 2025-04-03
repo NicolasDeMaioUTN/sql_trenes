@@ -35,25 +35,38 @@ def eliminar_columnas_int_con_zeros(df):
     df = df.drop(columns=columnas_a_eliminar)
     return df
 
+# Función para formatear la duración en horas, minutos y segundos
+def formatear_duracion(duracion):
+    segundos = int(duracion.total_seconds())
+    horas = segundos // 3600
+    minutos = (segundos % 3600) // 60
+    segundos = segundos % 60
+    return f"{horas}h {minutos}m {segundos}s"
 
 # Function to send the message asynchronously
-async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA):
+async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA, tablas, contador, total):
     bot = Bot(token=TOKEN)
     
-    # Calculate the duration between start and end times
+    # Calcular la duración entre la hora de inicio y la hora de fin
     duracion = hora_fin - hora_inicio
+    duracion_formateada = formatear_duracion(duracion)  # Formatear duración
     
-    # Create the message
+    # Crear el mensaje con formato Markdown
     mensaje = f"""
-        Análisis de Viajes Urbantrips!
-        Linea: {DATABASE}
-        Fecha y Hora de Inicio: {hora_inicio.strftime("%Y-%m-%d %H:%M:%S")}
-        Fecha y Hora de Fin: {hora_fin.strftime("%Y-%m-%d %H:%M:%S")}
-        Duracion: {duracion}
-        Descripción: La función se ejecutó correctamente, realizando tareas específicas durante el proceso.   
+        🚀 *Análisis de Viajes Urbantrips - Matrices de Juan* 🚀
+        🚌 *Proceso : {contador}/{total}
+        📊 *Linea:* {DATABASE}
+        ⏰ *Fecha y Hora de Inicio:* {hora_inicio.strftime("%Y-%m-%d %H:%M:%S")}
+        ⏳ *Fecha y Hora de Fin:* {hora_fin.strftime("%Y-%m-%d %H:%M:%S")}
+        ⏱️ *Duración:* {duracion_formateada}
+        📋 *Tablas exportadas:* {len(tablas)}
+        📂 *Directorio:* {subcarpeta_destino}
+        
+        📝 *Descripción:* La función se ejecutó correctamente, realizando tareas específicas durante el proceso.
+        
         --------------------------------------------
-        ¡Todo ha finalizado correctamente!
-        "Todas las tablas del esquema '{DATABASE}.{ESQUEMA}' han sido exportadas a la subcarpeta '{subcarpeta_destino}' con fecha y hora '{fecha_hora_actual}'.
+        🎉 ¡Todo ha finalizado correctamente! 🎉
+        Todas las tablas del esquema* `{DATABASE}.{ESQUEMA}` *han sido exportadas a la subcarpeta con fecha y hora* `{fecha_hora_actual}`*.
     """
     
     # Send the message asynchronously
@@ -121,10 +134,14 @@ def obtener_ruta_destino(tabla_nombre,subcarpeta_destino):
 
 # Asynchronous function to export tables and send the message
 async def exportar_tablas(fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA):
-   
-    hora_inicio = datetime.now()
     
+    total = len(DATABASE)
+    contador = 0
+      
     for D in DATABASE:
+        
+        hora_inicio = datetime.now()
+        contador += 1 
         
         # Setup your database connection string and engine
         connection_string = f"mssql+pyodbc://{SERVER}/{D}?driver=ODBC+Driver+17+for+SQL+Server"
@@ -230,16 +247,13 @@ async def exportar_tablas(fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA):
         hora_fin = datetime.now()
         
         # Call enviar_mensaje() asynchronously
-        await enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, D, ESQUEMA)
+        await enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, D, ESQUEMA,tablas,contador,total)
         logging.info(f"Proceso de exportación completado para el esquema '{D}.{ESQUEMA}' a la hora {fecha_hora_actual}.")
 
 # Main function to execute the process
 def main():
     
-    DATABASE = ['Linea148','Linea70','Linea29','Linea110',
-            'Linea178','Linea174','Linea51','Linea164','Linea80','Linea87','Linea135',
-            'Linea2','Linea143','Linea101','Linea168','Linea176','Linea124','Linea114',
-            'Linea79','Linea177','Linea8','Linea133','Linea150','Linea182','Linea163','Linea153'] 
+    DATABASE = ['Linea90','Linea118','Linea124'] 
     
     # Call exportar_tablas asynchronously
     asyncio.run(exportar_tablas(fecha_hora_actual,TOKEN, CHAT_ID, DATABASE, ESQUEMA))
