@@ -26,29 +26,29 @@ ORDER BY hora;
 WITH BaseServicios AS (
     SELECT 
         *,
-        CONVERT(DATETIME, FecIni, 103) AS FechaHoraConvertida
+        CAST (FecIni AS DATETIME) AS Fecha
     FROM servicios_2024_11_13
     WHERE
         xd = '13'
         AND MRK <> 'N'
-        AND CAST(FecIni AS DATETIME) BETWEEN '2024-11-13 00:00:00' AND '2024-11-13 06:00:00'
+        AND CAST(FecIni AS DATETIME) BETWEEN '2024-11-13 00:00:00' AND '2024-11-13 07:00:00'
 ),
 DatosAgrupados AS (
     SELECT
-        CONVERT(TIME, FechaHoraConvertida) AS hora, 
+        DATEPART(HOUR, CONVERT(TIME, Fecha)) AS hora, 
         l_codif,
         COUNT(id_servicio) AS Servicios,
         COUNT(dominio) AS CantVehiculos,
         SUM(TRY_CAST(CantPax AS INT)) AS TotalPax
     FROM BaseServicios
     GROUP BY 
-        CONVERT(TIME, FechaHoraConvertida),
+        CONVERT(TIME, Fecha),
         l_codif
 )
 SELECT 
     Metricas,
     l_codif AS Codigo,
-    [00:00:00], [01:00:00], [02:00:00], [03:00:00], [04:00:00], [05:00:00], [06:00:00]
+    [00], [01], [02], [03], [04], [05], [06]
 FROM (
     SELECT 
         l_codif,
@@ -65,6 +65,6 @@ FROM (
 ) AS SourceData
 PIVOT (
     SUM(Valor)
-    FOR hora IN ([00:00:00], [01:00:00], [02:00:00], [03:00:00], [04:00:00], [05:00:00], [06:00:00])
+    FOR hora IN ([00], [01], [02], [03], [04], [05], [06])
 ) AS PivotTable
 ORDER BY Metricas, Codigo;
