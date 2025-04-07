@@ -41,55 +41,70 @@ def eliminar_columnas_int_con_zeros(df):
     df = df.drop(columns=columnas_a_eliminar)
     return df
 
+
+# Función para formatear la duración en horas, minutos y segundos
+def formatear_duracion(duracion):
+    segundos = int(duracion.total_seconds())
+    horas = segundos // 3600
+    minutos = (segundos % 3600) // 60
+    segundos = segundos % 60
+    return f"{horas}h {minutos}m {segundos}s"
+
+
 # Function to send the message asynchronously
-async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA):
+async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA, tablas):
     bot = Bot(token=TOKEN)
     
-    # Calculate the duration between start and end times
+    # Calcular la duración entre la hora de inicio y la hora de fin
     duracion = hora_fin - hora_inicio
+    duracion_formateada = formatear_duracion(duracion)  # Formatear duración
     
-    # Create the message
+    # Crear el mensaje con formato Markdown
     mensaje = f"""
-        *Análisis de Viajes Urbantrips!*
-        Linea: {DATABASE}
-        *Fecha y Hora de Inicio:* {hora_inicio.strftime("%Y-%m-%d %H:%M:%S")}
-        *Fecha y Hora de Fin:* {hora_fin.strftime("%Y-%m-%d %H:%M:%S")}
-        *Duracion:* {duracion}
-        *Descripción:* La función se ejecutó correctamente, realizando tareas específicas durante el proceso.   
-        ----
-        ¡Todo ha finalizado correctamente!
-        "Todas las tablas del esquema '{DATABASE}.{ESQUEMA}' han sido exportadas a la subcarpeta '{subcarpeta_destino}' con fecha y hora '{fecha_hora_actual}'.
+        🚀 *Análisis de Viajes Urbantrips - Matrices de Juan* 🚀
+        📊 *Linea:* {DATABASE}
+        ⏰ *Fecha y Hora de Inicio:* {hora_inicio.strftime("%Y-%m-%d %H:%M:%S")}
+        ⏳ *Fecha y Hora de Fin:* {hora_fin.strftime("%Y-%m-%d %H:%M:%S")}
+        ⏱️ *Duración:* {duracion_formateada}
+        📋 *Tablas exportadas:* {len(tablas)}
+        📂 *Directorio:* {subcarpeta_destino}
+        
+        📝 *Descripción:* La función se ejecutó correctamente, realizando tareas específicas durante el proceso.
+        
+        --------------------------------------------
+        🎉 ¡Todo ha finalizado correctamente! 🎉
+        Todas las tablas del esquema* `{DATABASE}.{ESQUEMA}` *han sido exportadas a la subcarpeta con fecha y hora* `{fecha_hora_actual}`*.
     """
     
     # Send the message asynchronously
     await bot.send_message(chat_id=CHAT_ID, text=mensaje)
 
 
-
 # Definir las carpetas principales y subcarpetas
 estructura_carpetas = {
-    "1 - Viajes Propios": [],
-    "2 - Viajes Alternativos": [
+    "1 - V_ Prop": [
+        "a - estadisticas"
+    ],
+    "2 - V_Alt": [
 
-        "a - Viajes del Corredor",
-        "b - Viajes Alternativos",
-        "c - Viajes Propios en el Corredor"
+        "a - V_Corredor",
+        "b - V_Alt"
     ],
     "3 - Analisis de Zonas": []
 }
 
 subcarpetas_adicionales = {
-    "a - Viajes del Corredor": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "a - estadisticas": [
+        "a - top etapas",
+        "b - top comb viaje"
     ],
-    "b - Viajes Alternativos": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "a - V_Corredor": [
+        "a - top etapas",
+        "b - top comb viaje"
     ],
-    "c - Viajes Propios en el Corredor": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "b - V_Alt": [
+        "a - top etapas",
+        "b - top comb viaje"
     ]
 }
 
@@ -106,7 +121,7 @@ for carpeta, subcarpetas in estructura_carpetas.items():
             os.makedirs(ruta_subcarpeta)
             logging.info(f"Se creó la subcarpeta: {ruta_subcarpeta}")
 
-        # Crear subcarpetas adicionales para "a - Viajes del Corredor" y "b - Viajes Alternativos"
+        # Crear subcarpetas adicionales para "a - V_Corredor" y "b - V_Alt"
         if subcarpeta in subcarpetas_adicionales:
             for subsubcarpeta in subcarpetas_adicionales[subcarpeta]:
                 ruta_subsubcarpeta = os.path.join(ruta_subcarpeta, subsubcarpeta)
@@ -120,25 +135,25 @@ def obtener_ruta_destino(tabla_nombre):
     Devuelve la ruta de destino según el prefijo del nombre de la tabla.
     """
     if tabla_nombre.startswith("_1_"):
-        return os.path.join(subcarpeta_destino, "1 - Viajes Propios")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop")
     elif tabla_nombre.startswith("_2_1_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas","b - top comb viaje")
     elif tabla_nombre.startswith("_2_1_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas","a - top etapas")
     elif tabla_nombre.startswith("_2_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas")
     elif tabla_nombre.startswith("_2_2_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt","b - top comb viaje")
     elif tabla_nombre.startswith("_2_2_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt","a - top etapas")
     elif tabla_nombre.startswith("_2_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt")
     elif tabla_nombre.startswith("_2_3_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor","b - top comb viaje")
     elif tabla_nombre.startswith("_2_3_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor","a - top etapas")
     elif tabla_nombre.startswith("_2_3_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor")
     elif tabla_nombre.startswith("_3_"):
         return os.path.join(subcarpeta_destino, "3 - Analisis de Zonas")
     else:
@@ -191,8 +206,7 @@ async def exportar_tablas(tablas, engine, fecha_hora_actual, subcarpeta_destino,
     hora_fin = datetime.now()
     
     # Call enviar_mensaje() asynchronously
-    await enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA)
-    logging.info(f"Proceso de exportación completado para el esquema '{DATABASE}.{ESQUEMA}' a la hora {fecha_hora_actual}.")
+    await enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_actual, TOKEN, CHAT_ID, DATABASE, ESQUEMA, tablas)
 
 # Main function to execute the process
 def main():

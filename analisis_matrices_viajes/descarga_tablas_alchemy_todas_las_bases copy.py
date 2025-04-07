@@ -75,28 +75,29 @@ async def enviar_mensaje(hora_inicio, hora_fin, subcarpeta_destino, fecha_hora_a
 
 # Definir las carpetas principales y subcarpetas
 estructura_carpetas = {
-    "1 - Viajes Propios": [],
-    "2 - Viajes Alternativos": [
+    "1 - V_ Prop": [
+        "a - estadisticas"
+    ],
+    "2 - V_Alt": [
 
-        "a - Viajes del Corredor",
-        "b - Viajes Alternativos",
-        "c - Viajes Propios en el Corredor"
+        "a - V_Corredor",
+        "b - V_Alt"
     ],
     "3 - Analisis de Zonas": []
 }
 
 subcarpetas_adicionales = {
-    "a - Viajes del Corredor": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "a - estadisticas": [
+        "a - top etapas",
+        "b - top comb viaje"
     ],
-    "b - Viajes Alternativos": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "a - V_Corredor": [
+        "a - top etapas",
+        "b - top comb viaje"
     ],
-    "c - Viajes Propios en el Corredor": [
-        "a - Linea mas utilizada por cantidad de etapas",
-        "b - Combinacion de viaje mas utilizada"
+    "b - V_Alt": [
+        "a - top etapas",
+        "b - top comb viaje"
     ]
 }
 
@@ -107,25 +108,25 @@ def obtener_ruta_destino(tabla_nombre,subcarpeta_destino):
     Devuelve la ruta de destino según el prefijo del nombre de la tabla.
     """
     if tabla_nombre.startswith("_1_"):
-        return os.path.join(subcarpeta_destino, "1 - Viajes Propios")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop")
     elif tabla_nombre.startswith("_2_1_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas","b - top comb viaje")
     elif tabla_nombre.startswith("_2_1_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas","a - top etapas")
     elif tabla_nombre.startswith("_2_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "c - Viajes Propios en el Corredor")
+        return os.path.join(subcarpeta_destino, "1 - V_ Prop", "a - estadisticas")
     elif tabla_nombre.startswith("_2_2_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt","b - top comb viaje")
     elif tabla_nombre.startswith("_2_2_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt","a - top etapas")
     elif tabla_nombre.startswith("_2_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "b - Viajes Alternativos")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "b - V_Alt")
     elif tabla_nombre.startswith("_2_3_1_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","b - Combinacion de viaje mas utilizada")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor","b - top comb viaje")
     elif tabla_nombre.startswith("_2_3_2_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor","a - Linea mas utilizada por cantidad de etapas")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor","a - top etapas")
     elif tabla_nombre.startswith("_2_3_"):
-        return os.path.join(subcarpeta_destino, "2 - Viajes Alternativos", "a - Viajes del Corredor")
+        return os.path.join(subcarpeta_destino, "2 - V_Alt", "a - V_Corredor")
     elif tabla_nombre.startswith("_3_"):
         return os.path.join(subcarpeta_destino, "3 - Analisis de Zonas")
     else:
